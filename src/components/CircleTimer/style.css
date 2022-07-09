@@ -1,0 +1,76 @@
+#loader-container {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #313131;
+}
+
+.loader {
+  pointer-events: none;
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border-style: solid;
+  border-color: #dcddd8 transparent transparent transparent;
+  border-radius: 50%;
+  box-sizing: border-box;
+  transform: rotate(45deg);
+}
+
+.loader.hide {
+  width: 33px;
+  height: 32px;
+  border-color: #313131 transparent transparent transparent;
+  border-width: 8px;
+  animation: rotate-hide var(--time) linear forwards;
+}
+
+.loader:nth-of-type(2) {
+  animation: rotate-one var(--time) var(--time) linear forwards;
+}
+.loader:nth-of-type(3) {
+  animation: rotate-two var(--time) var(--time2) linear forwards;
+}
+.loader:nth-of-type(4) {
+  animation: rotate-three var(--time) var(--time3) linear forwards;
+}
+
+@keyframes rotate-hide {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(135deg);
+    visibility: hidden;
+  }
+}
+
+@keyframes rotate-one {
+  from {
+    transform: rotate(45deg);
+  }
+  to {
+    transform: rotate(135deg);
+  }
+}
+
+@keyframes rotate-two {
+  from {
+    visibility: hidden;
+    transform: rotate(135deg);
+  }
+  to {
+    transform: rotate(225deg);
+  }
+}
+
+@keyframes rotate-three {
+  from {
+    visibility: hidden;
+    transform: rotate(225deg);
+  }
+  to {
+    transform: rotate(315deg);
+  }
+}

@@ -1,0 +1,46 @@
+.game-block {
+  width: max(80vw, 300px);
+  max-width: 1536px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  user-select: none;
+}
+
+.game-block .location-item {
+  background-color: #dcddd8;
+  padding: 15px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 20px 10px 0;
+  position: relative;
+  /*height: 272px;*/
+}
+.game-block .location-item div {
+  color: #313131;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.game-block .location-item img {
+  /*width: 200px;*/
+  /*width: max(20vh, 200px);*/
+}
+.game-block .location-item img.checked {
+  filter: blur(10px);
+}
+
+.game-block .location-item svg {
+  fill: #ca3e47;
+  position: absolute;
+  /*width: 200px;*/
+  /*height: 200px;*/
+  top: 15px;
+  left: 15px;
+  width: max(20vh, 200px);
+  height: max(20vh, 200px);
+}
+
+.game-block-info {
+  color: #ca3e47;
+  margin-top: 15px;
+}

@@ -1,0 +1,64 @@
+.confirm-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  padding: 40px 20px 20px;
+}
+
+.confirm-modal .modal-content {
+  width: 500px;
+  background-color: #313131;
+  color: #dcddd8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 33px;
+}
+
+.confirm-modal .modal-header {
+  font-size: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  margin: 10px 0;
+  user-select: none;
+}
+.confirm-modal .modal-header button {
+  background-color: #313131;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.confirm-modal .modal-header svg {
+  fill: #dcddd8;
+  width: 25px;
+  height: 25px;
+}
+
+.confirm-modal .modal-description {
+  font-size: 1.25rem;
+  margin: 0 20px;
+  border-top: 1px solid #dcddd8;
+  border-bottom: 1px solid #dcddd8;
+  padding: 10px 0;
+  user-select: none;
+}
+
+.confirm-modal .btn-block {
+  width: 100%;
+}
+
+.confirm-modal .btn-block .ripple-btn {
+  width: 46%;
+  margin: 10px;
+}

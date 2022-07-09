@@ -1,0 +1,93 @@
+.spy-location-modal {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  z-index: 999;
+  padding: 40px 20px 20px;
+}
+
+.spy-location-modal .modal-content {
+  /*width: 500px;*/
+  width: 950px;
+  height: 700px;
+  background-color: #313131;
+  color: #dcddd8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 33px;
+}
+
+.spy-location-modal .modal-header {
+  font-size: 1.5rem;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  margin: 10px 0;
+  user-select: none;
+}
+.spy-location-modal .modal-header button {
+  background-color: #313131;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+.spy-location-modal .modal-header svg {
+  fill: #dcddd8;
+  width: 25px;
+  height: 25px;
+}
+
+.spy-location-modal .location-list-block {
+  margin: 0 20px;
+  /*width: 92%;*/
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  user-select: none;
+  overflow-y: overlay;
+  padding-right: 15px;
+}
+.spy-location-modal .list-item {
+  background-color: #dcddd8;
+  padding: 5px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 10px 5px 0;
+  position: relative;
+  width: 130px;
+  cursor: pointer;
+}
+.spy-location-modal .list-item div {
+  color: #313131;
+  font-weight: 600;
+  margin-top: 5px;
+  font-size: 0.85rem;
+}
+.spy-location-modal .list-item img {
+  width: 100px;
+}
+.spy-location-modal .list-item.checked {
+  background-color: #bbded6;
+}
+
+.spy-location-modal .btn-block {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.spy-location-modal .btn-block .ripple-btn {
+  width: 46%;
+  margin: 10px;
+}

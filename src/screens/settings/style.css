@@ -1,0 +1,51 @@
+section.settings-page {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #313131;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+section.settings-page div.wrap {
+  display: flex;
+  align-items: center;
+}
+
+section.settings-page h2.game-title {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  font-size: max(4vw, 40px);
+  color: #dcddd8;
+  padding: 20px 40px;
+  z-index: 1;
+  user-select: none;
+  cursor: pointer;
+}
+
+@media (max-width: 600px) {
+  section.settings-page div.wrap {
+    flex-direction: column;
+  }
+}
+
+section.settings-page .info {
+  color: #dcddd8;
+  margin-top: 10px;
+  height: 25px;
+  user-select: none;
+}
+
+section.settings-page .error {
+  color: #ca3e47;
+  user-select: none;
+}
+
+section.settings-page .cta {
+  display: flex;
+}
