@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
 import { useNavigate } from "react-router-dom";
+
+import { ToastContext } from "../../components/Toast";
 
 import { ReactComponent as SpySvg } from "./assets/user-secret-solid.svg";
 import { ReactComponent as UserSvg } from "./assets/user-solid.svg";
@@ -15,6 +17,29 @@ import "./style.css";
 
 const Home = () => {
   const navigate = useNavigate();
+
+  const { setToast } = useContext(ToastContext);
+  useEffect(() => {
+    // setToast({
+    //   message: "Hello!!!",
+    //   autoClose: 10000,
+    //   type: 'success',
+    // });
+    // setToast({
+    //   message: "Hello!!!",
+    //   autoClose: 10000,
+    //   type: 'danger',
+    // });
+    setToast({
+      message: "Hello!!!",
+      autoClose: 10000,
+      type: 'info',
+    });
+    // setToast({
+    //   message: "Hello!!!",
+    //   autoClose: 10000,
+    // });
+  }, [setToast]);
 
   const handleClickNewGame = () => {
     navigate("/settings");

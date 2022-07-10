@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo, useContext, useCallback } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import copy from "copy-to-clipboard";
 import {
@@ -13,6 +13,7 @@ import {
   // serverTimestamp,
 } from "firebase/firestore";
 
+import { ToastContext } from "../../components/Toast";
 import { db } from "../../firebase";
 import { getUserId } from "../../helpers/userId";
 import ConfirmModal from "../../components/ConfirmModal";
@@ -59,7 +60,18 @@ const Game = () => {
   const uuid = getUserId();
   const navigate = useNavigate();
 
-  // setting up initial game data
+  const { setToast } = useContext(ToastContext);
+
+  const isSpy = useMemo(() => gameData?.spy_uid && (uuid === gameData.spy_uid?.[0] ||
+    (gameData.spy_uid?.length > 1 && uuid === gameData.spy_uid[1])), [gameData?.spy_uid, uuid]);
+
+  const checkIfGameExists = useCallback(async () => {
+    const docSnap = await getDoc(doc(db, "game_rooms", id));
+    if (!docSnap.exists()) {
+      navigate("/error");
+    }
+  }, [navigate, id]);
+
   useEffect(() => {
     checkIfGameExists();
     const unsubscribe = onSnapshot(doc(db, "game_rooms", id), (doc) => {
@@ -69,7 +81,54 @@ const Game = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [checkIfGameExists, id]);
+
+  const getNumPlayersNeeded = useCallback(() => {
+    setTotalPlayersNeeded(
+      parseInt(gameData.min_player_count) - gameData.player_data_arr.length
+    );
+  }, [gameData?.min_player_count, gameData?.player_data_arr]);
+
+  const checkIfUserExists = useCallback(() => {
+    let userExists = false;
+    gameData.player_data_arr.forEach((element) => {
+      if (uuid === element.uid) {
+        userExists = true;
+      }
+    });
+    if (!userExists) {
+      setShowJoinForm(true);
+    }
+  }, [gameData?.player_data_arr, uuid]);
+
+  const checkIfBanned = useCallback(() => {
+    if (gameData.banned_player_uid.indexOf(uuid) !== -1) {
+      setBanned(true);
+      setShowJoinForm(false);
+    }
+  }, [gameData?.banned_player_uid, uuid]);
+
+  const leaveIfGameDeleted = useCallback(() => {
+    if (gameData.game_room_closed) {
+      navigate("/");
+    }
+  }, [gameData?.game_room_closed, navigate]);
+
+  const checkGameStatus = useCallback(() => {
+    if (gameData.ongoing_game) {
+      setOngoingGame(true);
+    } else {
+      setOngoingGame(false);
+    }
+  }, [gameData?.ongoing_game, setOngoingGame]);
+
+  const checkIfMidGamePlayer = useCallback(() => {
+    if (gameData.midgame_player_uid.indexOf(uuid) !== -1) {
+      setIsMidGamePlayer(true);
+    } else {
+      setIsMidGamePlayer(false);
+    }
+  }, [gameData?.midgame_player_uid, uuid]);
 
   useEffect(() => {
     if (dataLoaded) {
@@ -83,37 +142,17 @@ const Game = () => {
         setIsHost(true);
       }
     }
-  }, [dataLoaded, gameData]);
-
-  const isSpy = useMemo(() => gameData?.spy_uid && (uuid === gameData.spy_uid?.[0] ||
-    (gameData.spy_uid?.length > 1 && uuid === gameData.spy_uid[1])), [gameData?.spy_uid, uuid]);
-
-  function getNumPlayersNeeded() {
-    setTotalPlayersNeeded(
-      parseInt(gameData.min_player_count) - gameData.player_data_arr.length
-    );
-  }
-
-  // checking for errors
-  async function checkIfGameExists() {
-    const docSnap = await getDoc(doc(db, "game_rooms", id));
-    if (!docSnap.exists()) {
-      navigate("/error");
-    }
-  }
-
-  // adding players
-  function checkIfUserExists() {
-    let userExists = false;
-    gameData.player_data_arr.forEach((element) => {
-      if (uuid === element.uid) {
-        userExists = true;
-      }
-    });
-    if (!userExists) {
-      setShowJoinForm(true);
-    }
-  }
+  }, [
+    dataLoaded,
+    gameData,
+    checkGameStatus,
+    checkIfBanned,
+    checkIfMidGamePlayer,
+    checkIfUserExists,
+    getNumPlayersNeeded,
+    leaveIfGameDeleted,
+    uuid,
+  ]);
 
   const handleChange = value => {
     setUserName(value);
@@ -168,13 +207,6 @@ const Game = () => {
     });
   }
 
-  function checkIfBanned() {
-    if (gameData.banned_player_uid.indexOf(uuid) !== -1) {
-      setBanned(true);
-      setShowJoinForm(false);
-    }
-  }
-
   // deleting room
   async function deleteRoom() {
     await updateDoc(doc(db, "game_rooms", id), {
@@ -184,12 +216,6 @@ const Game = () => {
     await updateDoc(doc(db, "game_room_codes", "code_array"), {
       codes: arrayRemove(id),
     });
-  }
-
-  function leaveIfGameDeleted() {
-    if (gameData.game_room_closed) {
-      navigate("/");
-    }
   }
 
   // start game
@@ -226,14 +252,6 @@ const Game = () => {
     }
   }
 
-  function checkGameStatus() {
-    if (gameData.ongoing_game) {
-      setOngoingGame(true);
-    } else {
-      setOngoingGame(false);
-    }
-  }
-
   // restart game
   async function resetGame() {
     await updateDoc(doc(db, "game_rooms", id), {
@@ -246,22 +264,19 @@ const Game = () => {
     });
     checkIfMidGamePlayer();
     setOngoingGame(false);
-    showJoinForm(false);
+    // setShowJoinForm(false);
     // checkedArr = [];
-  }
-
-  function checkIfMidGamePlayer() {
-    if (gameData.midgame_player_uid.indexOf(uuid) !== -1) {
-      setIsMidGamePlayer(true);
-    } else {
-      setIsMidGamePlayer(false);
-    }
   }
 
   // components
   const CopyCode = (props) => {
     function copyLinkToClipboard() {
       copy(document.URL);
+
+      setToast({
+        message: "Copied",
+        type: 'success',
+      });
     }
 
     return (
@@ -295,6 +310,7 @@ const Game = () => {
       setIsVoteModalOpen(true);
     } else {
       setIsVoteModalOpen(false);
+      setIsSpyLocationModalOpen(false);
     }
   }, [gameData]);
 
@@ -315,33 +331,119 @@ const Game = () => {
   }
 
   // beforeunload
-  useEffect(() => {
-    const handleWindowBeforeUnload = () => {
-      console.log("beforeunload");
-    };
-
-    window.addEventListener('beforeunload', handleWindowBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleWindowBeforeUnload);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleWindowBeforeUnload = () => {
+  //     console.log("beforeunload");
+  //   };
+  //
+  //   window.addEventListener('beforeunload', handleWindowBeforeUnload);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', handleWindowBeforeUnload);
+  //   };
+  // }, []);
 
   // countdown timer score
-  const timerScore = useMemo(() => gameData?.timeData?.at(-1)?.status === 'start' &&
-    gameData.timeData.reduce((acc, timeItem, index) => {
-      if (index === 0) {
-        return 0;
-      }
+  const timerScore = useMemo(() => gameData?.timeData?.at(-1)?.status === 'start'
+    ? (
+      gameData.timeData.reduce((acc, timeItem, index) => {
+        if (index === 0) {
+          return 0;
+        }
 
-      return timeItem.status === 'start' ? acc + timeItem.time.toMillis() : acc - timeItem.time.toMillis();
-    }, 0),
+        return timeItem.status === 'start' ? acc + timeItem.time.toMillis() : acc - timeItem.time.toMillis();
+      }, 0)
+    )
+    : 'pause',
     [gameData?.timeData]
   );
   const countdown = useMemo(() => (
-      gameData?.timeData?.length && gameData.timeData[0].time.toMillis() + tenMinutes + timerScore
+      gameData?.timeData?.length && (
+      timerScore !== 'pause'
+        ? gameData.timeData[0].time.toMillis() + tenMinutes + timerScore
+        : 'pause'
+      )
     ),
     [gameData?.timeData, timerScore]
   );
+
+  // toasts
+  useEffect(() => {
+    if (showJoinForm) {
+      setToast({
+        message: "Enter a USERNAME to join a game.",
+        type: 'info',
+      });
+    }
+  }, [showJoinForm, setToast]);
+
+  useEffect(() => {
+    if (gameData?.lastGameSpy) {
+      if (uuid !== gameData.lastGameSpy.spyUid && gameData.lastGameSpy?.toasts?.length) {
+        gameData.lastGameSpy.toasts.forEach(item => {
+          setToast({
+            message: item.message,
+            type: item.type,
+            autoClose: 20000,
+          });
+        });
+      }
+
+      if (isHost) {
+        updateDoc(doc(db, "game_rooms", id), {
+          lastGameSpy: null,
+        });
+      }
+    }
+  }, [gameData?.lastGameSpy, setToast, id, isHost, uuid]);
+
+  const handlerCountdownTimer = useCallback(() => {
+    if (ongoingGame) {
+      setToast({
+        message: "Round over!",
+        type: 'danger',
+      });
+
+      if (isSpy) {
+        const player_data_arr = gameData.player_data_arr.map(player => {
+          if (player.uid === uuid) {
+            return { ...player, points: player.points + 2 }
+          }
+
+          return player;
+        });
+
+        const spyData = gameData.player_data_arr.find(item => item.uid === uuid);
+
+        updateDoc(doc(db, "game_rooms", id), {
+          vote_exhibited_uid: '',
+          vote_exhibitor_uid: '',
+          vote_score: {},
+
+          player_data_arr,
+          lastGameSpy: {
+            spyUid: uuid,
+            toasts: [{
+              message: `${spyData?.username || '???'} was a spy.`,
+              type: 'info',
+            }],
+          },
+
+          spy_uid: [],
+          location: { title: '',  id: '' },
+          ongoing_game: false,
+          midgame_player_uid: [],
+          // startedAt: null,
+          timeData: [],
+        });
+
+        setToast({
+          message: "You have received two points.",
+          type: 'success',
+        });
+      }
+    }
+
+  }, [gameData?.player_data_arr, id, isSpy, setToast, uuid, ongoingGame]);
 
   return (
     <section className="players">
@@ -356,37 +458,11 @@ const Game = () => {
 
       {(!ongoingGame || isHost) && <CopyCode id={id} />}
 
-      {!!countdown && ongoingGame && (
+      {!!countdown && countdown !== 'pause' && ongoingGame && (
         <CountdownTimer
-          countdown={new Date(countdown)}
-          callback={() => {
-            console.log("CountdownTimerEnd");
-
-            if (isSpy) {
-              const player_data_arr = gameData.player_data_arr.map(player => {
-                if (player.uid === uuid) {
-                  return { ...player, points: player.points + 2 }
-                }
-
-                return player;
-              });
-
-              updateDoc(doc(db, "game_rooms", id), {
-                vote_exhibited_uid: '',
-                vote_exhibitor_uid: '',
-                vote_score: {},
-
-                player_data_arr,
-
-                spy_uid: [],
-                location: { title: '',  id: '' },
-                ongoing_game: false,
-                midgame_player_uid: [],
-                // startedAt: null,
-                timeData: [],
-              });
-            }
-          }}
+          countToDate={new Date(countdown)}
+          stop={isVoteModalOpen}
+          callback={handlerCountdownTimer}
         />
       )}
 
@@ -474,8 +550,8 @@ const Game = () => {
           <button className="cta" onClick={handleClickJoin}>
             <span>Join Game</span>
             <svg width="13px" height="10px" viewBox="0 0 13 10">
-              <path d="M1,5 L11,5"></path>
-              <polyline points="8 1 12 5 8 9"></polyline>
+              <path d="M1,5 L11,5" />
+              <polyline points="8 1 12 5 8 9" />
             </svg>
           </button>
         </div>
@@ -582,7 +658,7 @@ const Game = () => {
         />
       )}
 
-      <SpyLocationModal
+      {isSpyLocationModalOpen && <SpyLocationModal
         handleClose={() => {
           setIsSpyLocationModalOpen(false);
         }}
@@ -591,11 +667,9 @@ const Game = () => {
         location={gameData?.location}
         id={id}
         uuid={uuid}
-      />
+      />}
     </section>
   );
 };
 
 export default Game;
-
-// Round over!

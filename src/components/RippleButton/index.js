@@ -27,7 +27,7 @@ const Button = ({ text, colorOne, colorTwo, onClick }) => {
     return () => {
       element.removeEventListener("click", handleClick);
     }
-  }, [document]);
+  }, [id]);
 
   return (
     <button id={`${id}-btn`} className="ripple-btn" onClick={onClick} style={{ "--crlOne": colorOne, "--crlTwo": colorTwo }}>{text}</button>

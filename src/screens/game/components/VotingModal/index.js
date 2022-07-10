@@ -1,6 +1,7 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useContext } from "react";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 
+import { ToastContext } from "../../../../components/Toast";
 import { db } from "../../../../firebase";
 import ReactPortal from "../../../../components/ConfirmModal/ReactPortal";
 import Button from "../../../../components/RippleButton";
@@ -25,15 +26,17 @@ function VotingModal({
   const exhibited = useMemo(() => playerData.find(player => player.uid === exhibitedUid), [playerData, exhibitedUid]);
   const exhibitor = useMemo(() => playerData.find(player => player.uid === exhibitorUid), [playerData, exhibitorUid]);
 
+  const { setToast } = useContext(ToastContext);
+
   const isVotingOver = useMemo(() => playerData
       .filter(player => player.uid !== exhibitedUid)
       .every(player => voteScore?.[player.uid] && voteScore[player.uid] === 'spy'),
-    [playerData, voteScore]
+    [playerData, voteScore, exhibitedUid]
   );
   const isAllPlayerVoting = useMemo(() => playerData
       .filter(player => player.uid !== exhibitedUid)
       .every(player => voteScore?.[player.uid]),
-    [playerData, voteScore]
+    [playerData, voteScore, exhibitedUid]
   );
 
   useEffect(() => {
@@ -88,12 +91,45 @@ function VotingModal({
           }
         }
 
+        setToast({
+          message: !isVotingOver
+            ? 'Voting failed'
+            : isVotingOver && spyUid.includes(exhibitedUid)
+              ? spyUid.includes(uuid)
+                ? 'You are exposed.'
+                : 'Spy exposed.'
+              : spyUid.includes(uuid)
+                ? 'The players made a mistake.'
+                : 'Unfortunately, this player is not a spy.',
+          type: !isVotingOver
+            ? 'danger'
+            : isVotingOver && spyUid.includes(exhibitedUid)
+              ? spyUid.includes(uuid)
+                ? 'danger'
+                : 'success'
+              : spyUid.includes(uuid)
+                ? 'success'
+                : 'danger',
+        });
+
         handleClose();
       }, 12000);
     }
 
     return () => clearTimeout(timer);
-  }, [isVotingOver, isAllPlayerVoting]);
+  }, [
+    isVotingOver,
+    isAllPlayerVoting,
+    exhibitedUid,
+    exhibitorUid,
+    handleClose,
+    id,
+    isHost,
+    playerData,
+    setToast,
+    spyUid,
+    uuid,
+  ]);
 
   useEffect(() => {
     if (isOpen) {

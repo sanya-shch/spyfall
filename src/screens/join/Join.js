@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
+
+import { ToastContext } from "../../components/Toast";
 
 import { db } from "../../firebase";
 import Input from "../../components/Input";
@@ -11,6 +13,14 @@ const Join = () => {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  const { setToast } = useContext(ToastContext);
+  useEffect(() => {
+    setToast({
+      message: "Enter a ROOM CODE to join a game.",
+      type: 'info',
+    })
+  }, [setToast]);
 
   async function handleClickJoin() {
     if (code !== '') {
@@ -51,8 +61,8 @@ const Join = () => {
         <button className="cta" onClick={handleClickJoin}>
           <span>Join Game</span>
           <svg width="13px" height="10px" viewBox="0 0 13 10">
-            <path d="M1,5 L11,5"></path>
-            <polyline points="8 1 12 5 8 9"></polyline>
+            <path d="M1,5 L11,5" />
+            <polyline points="8 1 12 5 8 9" />
           </svg>
         </button>
       </div>

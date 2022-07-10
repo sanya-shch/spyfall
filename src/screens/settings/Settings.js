@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
+import { ToastContext } from "../../components/Toast";
 
 import { getUserId } from "../../helpers/userId";
 import { getSixLetterCode, startGame, updateErrorMessage } from "./helpers";
@@ -19,9 +21,17 @@ const Settings = ({ gameId, setGameId }) => {
 
   const uuid = getUserId();
 
+  const { setToast } = useContext(ToastContext);
+  useEffect(() => {
+    setToast({
+      message: "Enter a USERNAME to create a game.",
+      type: 'info',
+    });
+  }, [setToast]);
+
   useEffect(() => {
     setGameId(getSixLetterCode());
-  }, []);
+  }, [setGameId]);
 
   useEffect(() => {
     if (parseInt(spyCount) > 1) {
@@ -39,7 +49,7 @@ const Settings = ({ gameId, setGameId }) => {
         setErrorMessage,
       });
     }
-  }, [username, spyCount]);
+  }, [username, spyCount, errorMessage]);
 
   const handleClickCreateGame = () => {
     updateErrorMessage({

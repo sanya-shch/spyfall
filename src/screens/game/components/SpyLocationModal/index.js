@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { doc, updateDoc } from "firebase/firestore";
 
+import { ToastContext } from "../../../../components/Toast";
 import { db } from "../../../../firebase";
 import ReactPortal from "../../../../components/ConfirmModal/ReactPortal";
 import Button from "../../../../components/RippleButton";
@@ -18,6 +19,15 @@ function SpyLocationModal({
                             location,
                          }) {
   const [choosenLocation, setChoosenLocation] = useState(null);
+
+  const { setToast } = useContext(ToastContext);
+
+  useEffect(() => {
+    setToast({
+      message: 'You have one attempt.',
+      type: 'info',
+    });
+  }, [setToast]);
 
   useEffect(() => {
     if (isOpen) {
@@ -57,15 +67,42 @@ function SpyLocationModal({
         vote_score: {},
 
         player_data_arr,
+        lastGameSpy: {
+          spyUid: uuid,
+          toasts: [
+            {
+              message: choosenLocation.id !== location.id
+                ? 'The spy did not guess the location.'
+                : 'The spy guessed the location.',
+              type: choosenLocation.id !== location.id
+                ? 'success'
+                : 'danger',
+            },
+            {
+              message: `${playerData.find(item => item.uid === uuid)?.username || '???'} was a spy.`,
+              type: 'info',
+            },
+          ],
+        },
 
         spy_uid: [],
         location: { title: '',  id: '' },
         ongoing_game: false,
         midgame_player_uid: [],
-        startedAt: null,
+        // startedAt: null,
+        timeData: [],
       });
 
       handleClose();
+
+      setToast({
+        message: choosenLocation.id !== location.id
+          ? 'You were wrong.'
+          : 'You guessed the location correctly.',
+        type: choosenLocation.id !== location.id
+          ? 'danger'
+          : 'success',
+      });
     }
   };
 

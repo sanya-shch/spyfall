@@ -79,7 +79,7 @@ export const updateErrorMessage = ({
   if (!username && !spyCount) {
     error = "choose your settings";
   } else if (!username) {
-    error = "enter your name";
+    error = "enter username";
   } else if (!spyCount) {
     error = "pick the number of spies";
   }

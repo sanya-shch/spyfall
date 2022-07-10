@@ -20,7 +20,7 @@ const NotFound = () => {
     return () => {
       element.removeEventListener("mousemove", handleMouseMove);
     }
-  }, [document]);
+  }, []);
 
   const handleClick = () => {
     navigate("/");

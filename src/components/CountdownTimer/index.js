@@ -1,120 +1,125 @@
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useState} from 'react';
 
 import './style.css';
 
-function CountdownTracker(label, value){
-  const el = document.createElement('span');
+function flipAllCards(time) {
+  const seconds = time % 60;
+  const minutes = Math.floor(time / 60) % 60;
+  // const hours = Math.floor(time / 3600);
 
-  el.className = 'flip-clock__piece';
-  el.innerHTML = '<b class="flip-clock__card card"><b class="card__top"></b><b class="card__bottom"></b><b class="card__back"><b class="card__bottom"></b></b></b>' +
-    '<span class="flip-clock__slot">' + label + '</span>';
-
-  this.el = el;
-
-  const top = el.querySelector('.card__top'),
-    bottom = el.querySelector('.card__bottom'),
-    back = el.querySelector('.card__back'),
-    backBottom = el.querySelector('.card__back .card__bottom');
-
-  this.update = function(val){
-    val = ( '0' + val ).slice(-2);
-    if ( val !== this.currentValue ) {
-
-      if ( this.currentValue >= 0 ) {
-        back.setAttribute('data-value', this.currentValue);
-        bottom.setAttribute('data-value', this.currentValue);
-      }
-      this.currentValue = val;
-      top.innerText = this.currentValue;
-      backBottom.setAttribute('data-value', this.currentValue);
-
-      this.el.classList.remove('flip');
-      void this.el.offsetWidth;
-      this.el.classList.add('flip');
-    }
-  };
-
-  this.update(value);
+  // flip(document.querySelector("[data-hours-tens]"), Math.floor(hours / 10));
+  // flip(document.querySelector("[data-hours-ones]"), hours % 10);
+  flip(document.querySelector("[data-minutes-tens]"), Math.floor(minutes / 10));
+  flip(document.querySelector("[data-minutes-ones]"), minutes % 10);
+  flip(document.querySelector("[data-seconds-tens]"), Math.floor(seconds / 10));
+  flip(document.querySelector("[data-seconds-ones]"), seconds % 10);
 }
 
-function getTimeRemaining(endtime) {
-  const t = Date.parse(endtime) - Date.parse(new Date());
-  return {
-    'Total': t,
-    // 'Days': Math.floor(t / (1000 * 60 * 60 * 24)),
-    // 'Hours': Math.floor((t / (1000 * 60 * 60)) % 24),
-    'Minutes': Math.floor((t / 1000 / 60) % 60),
-    'Seconds': Math.floor((t / 1000) % 60)
-  };
+function flip(flipCard, newNumber) {
+  const topHalf = flipCard.querySelector(".top");
+  const startNumber = parseInt(topHalf.textContent);
+  if (newNumber === startNumber) return;
+
+  const bottomHalf = flipCard.querySelector(".bottom");
+  const topFlip = document.createElement("div");
+  topFlip.classList.add("top-flip");
+  const bottomFlip = document.createElement("div");
+  bottomFlip.classList.add("bottom-flip");
+
+  topHalf.textContent = startNumber;
+  bottomHalf.textContent = startNumber;
+  topFlip.textContent = startNumber;
+  bottomFlip.textContent = newNumber;
+
+  topFlip.addEventListener("animationstart", e => {
+    topHalf.textContent = newNumber;
+  });
+  topFlip.addEventListener("animationend", e => {
+    topFlip.remove();
+  });
+  bottomFlip.addEventListener("animationend", e => {
+    bottomHalf.textContent = newNumber;
+    bottomFlip.remove();
+  });
+  flipCard.append(topFlip, bottomFlip);
 }
 
-function getTime() {
-  const t = new Date();
-  return {
-    'Total': t,
-    'Hours': t.getHours() % 12,
-    'Minutes': t.getMinutes(),
-    'Seconds': t.getSeconds()
-  };
-}
-
-const CountdownTimer = ({ countdown, callback = function(){} }) => {
-  const element = useRef();
-
-  countdown = countdown ? new Date(Date.parse(countdown)) : false;
-
-  const updateFn = countdown ? getTimeRemaining : getTime;
-
-  // this.el = document.createElement('div');
-  // this.el.className = 'flip-clock';
-
-  const trackers = {};
-  const t = updateFn(countdown);
-  let timeinterval;
+const CountdownTimer = ({
+                          countToDate = new Date().setHours(new Date().getMinutes() + 24),
+                          stop = false,
+                          callback = function(){},
+                        }) => {
+  // let previousTimeBetweenDates;
+  // let isStop = false;
+  const [isStop, seIsStop] = useState(false);
 
   useEffect(() => {
-    for ( let key in t ){
-      if ( key === 'Total' ) { continue; }
-      trackers[key] = new CountdownTracker(key, t[key]);
-      element.current.appendChild(trackers[key].el);
-    }
-  }, []);
+    let timer = setInterval(() => {
+      const currentDate = new Date();
+      const timeBetweenDates = Math.ceil((countToDate - currentDate) / 1000);
 
-  let i = 0;
-  function updateClock() {
-    timeinterval = requestAnimationFrame(updateClock);
-
-    // throttle so it's not constantly updating the time.
-    if ( i++ % 10 ) { return; }
-
-    var t = updateFn(countdown);
-    if ( t.Total < 0 ) {
-      cancelAnimationFrame(timeinterval);
-      for ( let key in trackers ){
-        trackers[key].update( 0 );
+      if (isStop || stop) {
+        clearInterval(timer);
+      } else if (timeBetweenDates > -1) {
+        flipAllCards(timeBetweenDates);
+      } else {
+        seIsStop(true);
+        clearInterval(timer);
+        callback();
       }
-      callback();
-      return;
-    }
 
-    for ( let key in trackers ){
-      trackers[key].update( t[key] );
-    }
-  }
+      // previousTimeBetweenDates = timeBetweenDates;
+    }, 250);
 
-  setTimeout(updateClock,500);
+    return () => clearInterval(timer);
+  }, [countToDate, stop, isStop, callback]);
 
-  // var deadline = new Date(Date.parse(new Date()) + 12 * 24 * 60 * 60 * 1000);
-  // var c = new Clock(deadline, function(){ alert('countdown complete') });
-  // document.body.appendChild(c.el);
-  //
-  // var clock = new Clock();
-  // document.body.appendChild(clock.el);
+  if (stop) return;
 
   return(
-    <div ref={element} className="flip-clock">
-
-    </div>
+    isStop || stop ? null : (
+      <div className="container">
+        {/*<div className="container-segment">*/}
+        {/*  <div className="segment-title">Hours</div>*/}
+        {/*  <div className="segment">*/}
+        {/*    <div className="flip-card" data-hours-tens>*/}
+        {/*      <div className="top">2</div>*/}
+        {/*      <div className="bottom">2</div>*/}
+        {/*    </div>*/}
+        {/*    <div className="flip-card" data-hours-ones>*/}
+        {/*      <div className="top">4</div>*/}
+        {/*      <div className="bottom">4</div>*/}
+        {/*    </div>*/}
+        {/*  </div>*/}
+        {/*</div>*/}
+        <div className="container-segment">
+          <div className="segment">
+            <div className="flip-card" data-minutes-tens>
+              <div className="top">0</div>
+              <div className="bottom">0</div>
+            </div>
+            <div className="flip-card" data-minutes-ones>
+              <div className="top">0</div>
+              <div className="bottom">0</div>
+            </div>
+          </div>
+          <div className="segment-title">Minutes</div>
+        </div>
+        <div className="container-segment">
+          <div className="segment">
+            <div className="flip-card" data-seconds-tens>
+              <div className="top">0</div>
+              <div className="bottom">0</div>
+            </div>
+            <div className="flip-card" data-seconds-ones>
+              <div className="top">0</div>
+              <div className="bottom">0</div>
+            </div>
+          </div>
+          <div className="segment-title">Seconds</div>
+        </div>
+      </div>
+    )
   );
 };
 
