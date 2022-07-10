@@ -62,3 +62,12 @@
   width: 46%;
   margin: 10px;
 }
+
+@media (max-width: 600px) {
+  .confirm-modal .modal-content {
+    width: 100%;
+  }
+  .confirm-modal .btn-block .ripple-btn {
+    width: 95%;
+  }
+}

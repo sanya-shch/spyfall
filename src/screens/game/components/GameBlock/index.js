@@ -34,7 +34,9 @@ const GameCard = ({ isSpy, isMidGamePlayer, showJoinForm, ongoingGame }) => {
           className={item.checked ? 'checked' : ''}
           alt={item.title}
           src={IMAGES[item.id]}
-          loading="lazy" width="200" height="200"
+          loading="lazy"
+          width="200"
+          height="200"
         />
         <div>{item.title}</div>{item.checked}
         {item.checked && (

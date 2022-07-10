@@ -1,5 +1,6 @@
 .game-block {
-  width: max(80vw, 300px);
+  /*width: max(80vw, 300px);*/
+  width: 80vw;
   max-width: 1536px;
   display: flex;
   flex-wrap: wrap;
@@ -43,4 +44,19 @@
 .game-block-info {
   color: #ca3e47;
   margin-top: 15px;
+}
+
+@media (max-width: 600px) {
+  .game-block {
+    width: 100%;
+  }
+  .game-block .location-item {
+    width: min(45vw, 180px);
+    margin: 10px 8px 0;
+  }
+  .game-block .location-item img {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+  }
 }

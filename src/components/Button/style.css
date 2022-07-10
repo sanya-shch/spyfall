@@ -1,21 +1,17 @@
 button.ns-btn {
   background-color:  #DCDDD8;
   color:  #DCDDD8;
-  font-size: 1.5em;
-  letter-spacing: 0.1em;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
   font-weight: 400;
   padding: 10px 30px;
   transition: 0.5s;
   border: none;
   z-index: 1;
   cursor: pointer;
+  white-space: nowrap;
 }
-button.ns-btn:hover {
-  letter-spacing: 0.25em;
-  color: var(--crl);
-  background-color: var(--crl);
-  box-shadow: 0 0 35px var(--crl);
-}
+
 button.ns-btn::before {
   content: '';
   position: absolute;
@@ -42,10 +38,7 @@ button.ns-btn i::before {
   transform: translateX(-50%) skewX(325deg);
   transition: 0.5s;
 }
-button.ns-btn:hover i::before {
-  width: 30px;
-  left: 20%;
-}
+
 button.ns-btn i::after {
   content: '';
   position: absolute;
@@ -57,7 +50,22 @@ button.ns-btn i::after {
   transform: translateX(-50%) skewX(325deg);
   transition: 0.5s;
 }
-button.ns-btn:hover i::after {
-  width: 30px;
-  left: 80%;
+
+@media (min-width: 768px) {
+  button.ns-btn:hover {
+    letter-spacing: 0.25em;
+    color: var(--crl);
+    background-color: var(--crl);
+    box-shadow: 0 0 35px var(--crl);
+  }
+
+  button.ns-btn:hover i::before {
+    width: 30px;
+    left: 20%;
+  }
+
+  button.ns-btn:hover i::after {
+    width: 30px;
+    left: 80%;
+  }
 }

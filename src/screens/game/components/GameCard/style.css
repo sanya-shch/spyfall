@@ -52,3 +52,17 @@
   top: 53px;
   left: 10px;
 }
+
+@media (max-width: 600px) {
+  .game-card {
+    width: 310px;
+    max-height: 430px;
+  }
+  .game-card img {
+    width: 250px;
+    height: 250px;
+  }
+  .game-card i {
+    width: 300px;
+  }
+}

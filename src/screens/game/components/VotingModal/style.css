@@ -32,6 +32,7 @@
   padding: 0 20px;
   margin: 10px 0;
   user-select: none;
+  height: 35px;
 }
 .voting-modal .modal-header button {
   background-color: #313131;
@@ -42,8 +43,8 @@
 }
 .voting-modal .modal-header svg {
   fill: #dcddd8;
-  width: 25px;
-  height: 25px;
+  /*width: 25px;*/
+  /*height: 25px;*/
 }
 
 .voting-modal .modal-description {
@@ -71,7 +72,9 @@
 .voting-modal .list-item {
   padding: 10px 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 .voting-modal .list-item svg.like {
   fill: #00dfc4;
@@ -98,4 +101,16 @@
   text-align: center;
   margin: 10px;
   user-select: none;
+}
+
+@media (max-width: 600px) {
+  .voting-modal .modal-content {
+    width: 100%;
+  }
+  .voting-modal .btn-block {
+    margin-top: 10px;
+  }
+  .voting-modal .btn-block .ripple-btn {
+    width: 95%;
+  }
 }

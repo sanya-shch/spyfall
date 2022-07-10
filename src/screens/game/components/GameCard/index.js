@@ -10,7 +10,12 @@ const GameCard = ({ isSpy, locationData }) => {
   return(
     <div className="game-card">
       <i/>
-      <img alt="" src={imgSrc} />
+      <img
+        alt=""
+        src={imgSrc}
+        width="300"
+        height="300"
+      />
       <div className="text">{isSpy ? 'YOU ARE THE SPY!' : <span>{locationData.title}</span>}</div>
     </div>
   );

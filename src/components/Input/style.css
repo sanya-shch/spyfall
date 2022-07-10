@@ -7,20 +7,18 @@
   width: 100%;
   padding: 10px;
   border: 1px solid #dcddd8;
-  /*border: 1px solid rgba(255, 255, 255, 0.25);*/
   background-color: #313131;
-  /*background-color: #111;*/
   border-radius: 5px;
   outline: none;
   color: #dcddd8;
-  font-size: 1em;
+  font-size: 1.5rem;
   transition: 0.5s;
 }
 
 .inputBox span {
   position: absolute;
   left: 0;
-  padding: 10px;
+  padding: 17px;
   pointer-events: none;
   font-size: 1em;
   color: #dcddd8;

@@ -101,3 +101,9 @@
 .toast[data-type="info"].progress::before {
   background-color: #004d61;
 }
+
+@media (max-width: 600px) {
+  .toast-container {
+    width: 90vw;
+  }
+}

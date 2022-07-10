@@ -20,7 +20,7 @@ section.join-page h2.game-title {
   top: 10%;
   left: 50%;
   transform: translate(-50%,-50%);
-  font-size: max(4vw, 40px);
+  font-size: 4rem;
   color: #dcddd8;
   padding: 20px 40px;
   z-index: 1;
@@ -47,62 +47,6 @@ section.join-page .error {
   user-select: none;
 }
 
-.cta {
-  position: relative;
-  padding: 19px 22px;
-  transition: all 0.2s ease;
-  background-color: transparent;
-  border: none;
-  margin-left: 30px;
-  user-select: none;
-  cursor: pointer;
-  color: #dcddd8;
-}
-.cta:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: block;
-  border-radius: 28px;
-  background: rgba(0, 223, 196, 0.5);
-  width: 56px;
-  height: 56px;
-  transition: all 0.3s ease;
-}
-.cta span {
-  position: relative;
-  font-size: 16px;
-  line-height: 18px;
-  font-weight: 900;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  vertical-align: middle;
-}
-.cta svg {
-  position: relative;
-  top: 0;
-  margin-left: 10px;
-  fill: none;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke: #dcddd8;
-  stroke-width: 2;
-  transform: translateX(-5px);
-  transition: all 0.3s ease;
-  width: 20px;
-}
-.cta:hover {
-  color: #111;
-}
-.cta:hover:before {
-  width: 100%;
-  background: #00dfc4;
-}
-.cta:hover svg {
-  stroke: #111;
-  transform: translateX(0);
-}
-.cta:active {
-  transform: scale(0.96);
+section.join-page .cta {
+  display: flex;
 }

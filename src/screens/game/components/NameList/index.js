@@ -78,7 +78,7 @@ const NameList = ({
           </div>
       )})}
 
-      {!ongoingGame && (
+      {!ongoingGame && isHost && (
         <div className="info-block">
           <div className="info-item">
             minimum players: {minPlayerCount}

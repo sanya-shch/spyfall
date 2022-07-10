@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useContext, useCallback } from "react";
+import React, { useState, useEffect, useMemo, useContext, useCallback, lazy, Suspense } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import copy from "copy-to-clipboard";
 import {
@@ -22,12 +22,19 @@ import SpyLocationModal from "./components/SpyLocationModal";
 import Button from "../../components/RippleButton";
 import Input from "../../components/Input";
 import { getLocationData } from "../../helpers";
-import GameCard from "./components/GameCard";
-import GameBlock from "./components/GameBlock";
-import NameList from "./components/NameList";
-import CountdownTimer from "../../components/CountdownTimer";
+// import GameCard from "./components/GameCard";
+// import GameBlock from "./components/GameBlock";
+// import NameList from "./components/NameList";
+// import CountdownTimer from "../../components/CountdownTimer";
+import CircleButton from "../../components/CircleButton";
+import Loader from "../../components/Loader";
 
 import './style.css';
+
+const GameCard = lazy(() => import("./components/GameCard"));
+const GameBlock = lazy(() => import("./components/GameBlock"));
+const NameList = lazy(() => import("./components/NameList"));
+const CountdownTimer = lazy(() => import("../../components/CountdownTimer"));
 
 const tenMinutes = 10 * 60 * 1000;
 
@@ -64,6 +71,13 @@ const Game = () => {
 
   const isSpy = useMemo(() => gameData?.spy_uid && (uuid === gameData.spy_uid?.[0] ||
     (gameData.spy_uid?.length > 1 && uuid === gameData.spy_uid[1])), [gameData?.spy_uid, uuid]);
+
+  const isInGame = useMemo(() => {
+    if (gameData?.midgame_player_uid) {
+      return !gameData.midgame_player_uid.includes(uuid);
+    }
+    return false;
+  }, [gameData?.midgame_player_uid, uuid]);
 
   const checkIfGameExists = useCallback(async () => {
     const docSnap = await getDoc(doc(db, "game_rooms", id));
@@ -367,14 +381,14 @@ const Game = () => {
   );
 
   // toasts
-  useEffect(() => {
-    if (showJoinForm) {
-      setToast({
-        message: "Enter a USERNAME to join a game.",
-        type: 'info',
-      });
-    }
-  }, [showJoinForm, setToast]);
+  // useEffect(() => {
+  //   if (showJoinForm) {
+  //     setToast({
+  //       message: "Enter a USERNAME to join a game.",
+  //       type: 'info',
+  //     });
+  //   }
+  // }, [showJoinForm, setToast]);
 
   useEffect(() => {
     if (gameData?.lastGameSpy) {
@@ -456,40 +470,53 @@ const Game = () => {
         SPYFALL
       </h2>
 
-      {(!ongoingGame || isHost) && <CopyCode id={id} />}
+      {(!ongoingGame || isHost) && !banned && <CopyCode id={id} />}
 
-      {!!countdown && countdown !== 'pause' && ongoingGame && (
-        <CountdownTimer
-          countToDate={new Date(countdown)}
-          stop={isVoteModalOpen}
-          callback={handlerCountdownTimer}
-        />
+      {!!countdown &&
+      countdown !== 'pause' &&
+      ongoingGame &&
+      !isMidGamePlayer &&
+      !showJoinForm &&
+      !banned && (
+        <Suspense fallback={<Loader isFullScreen={false} />}>
+          <CountdownTimer
+            countToDate={new Date(countdown)}
+            stop={isVoteModalOpen}
+            callback={handlerCountdownTimer}
+          />
+        </Suspense>
       )}
 
       {ongoingGame &&
       !isMidGamePlayer &&
-      !showJoinForm && (
-        <GameCard isSpy={isSpy} locationData={gameData?.location} />
+      !showJoinForm &&
+      isInGame &&
+      !banned && (
+        <Suspense fallback={<Loader isFullScreen={false} />}>
+          <GameCard isSpy={isSpy} locationData={gameData?.location} />
+        </Suspense>
       )}
 
-      {gameData && (
-        <NameList
-          playersList={gameData.player_data_arr}
-          minPlayerCount={gameData.min_player_count}
-          spyCount={gameData.spy_count}
-          onClickKick={index => {
-            setKickIndex(index);
-            setIsKickModalOpen(true);
-          }}
-          isHost={isHost}
-          hostUid={gameData.host_uid}
-          ongoingGame={ongoingGame}
-          putToVote={putToVoteOpenModal}
-          uuid={uuid}
-          isSpy={isSpy}
-          isMidGamePlayer={isMidGamePlayer}
-          showJoinForm={showJoinForm}
-        />
+      {gameData && !banned && (
+        <Suspense fallback={<Loader isFullScreen={false} />}>
+          <NameList
+            playersList={gameData.player_data_arr}
+            minPlayerCount={gameData.min_player_count}
+            spyCount={gameData.spy_count}
+            onClickKick={index => {
+              setKickIndex(index);
+              setIsKickModalOpen(true);
+            }}
+            isHost={isHost}
+            hostUid={gameData.host_uid}
+            ongoingGame={ongoingGame}
+            putToVote={putToVoteOpenModal}
+            uuid={uuid}
+            isSpy={isSpy}
+            isMidGamePlayer={isMidGamePlayer}
+            showJoinForm={showJoinForm}
+          />
+        </Suspense>
       )}
 
       {isSpy && (
@@ -503,13 +530,15 @@ const Game = () => {
         </div>
       )}
 
-      {ongoingGame && (
-        <GameBlock
-          isSpy={isSpy}
-          isMidGamePlayer={isMidGamePlayer}
-          showJoinForm={showJoinForm}
-          ongoingGame={ongoingGame}
-        />
+      {ongoingGame && !banned && (
+        <Suspense fallback={<Loader isFullScreen={false} />}>
+          <GameBlock
+            isSpy={isSpy}
+            isMidGamePlayer={isMidGamePlayer}
+            showJoinForm={showJoinForm}
+            ongoingGame={ongoingGame}
+          />
+        </Suspense>
       )}
 
       {banned ? (
@@ -547,13 +576,16 @@ const Game = () => {
             maxLength={15}
             onChange={handleChange}
           />
-          <button className="cta" onClick={handleClickJoin}>
-            <span>Join Game</span>
-            <svg width="13px" height="10px" viewBox="0 0 13 10">
-              <path d="M1,5 L11,5" />
-              <polyline points="8 1 12 5 8 9" />
-            </svg>
-          </button>
+          <CircleButton
+            handleClick={handleClickJoin}
+            text='Join Game'
+            svg={(
+              <svg width="13px" height="10px" viewBox="0 0 13 10">
+                <path d="M1,5 L11,5" />
+                <polyline points="8 1 12 5 8 9" />
+              </svg>
+            )}
+          />
         </div>
       )}
 
@@ -655,6 +687,7 @@ const Game = () => {
           uuid={uuid}
           spyUid={gameData?.spy_uid}
           isHost={isHost}
+          isSpy={isSpy}
         />
       )}
 

@@ -88,3 +88,15 @@
 .segment-title {
   font-size: 1rem;
 }
+
+@media (max-width: 600px) {
+  .flip-card {
+    font-size: 4.25rem;
+  }
+  .top,
+  .bottom,
+  .flip-card .top-flip,
+  .flip-card .bottom-flip {
+    width: 80px;
+  }
+}

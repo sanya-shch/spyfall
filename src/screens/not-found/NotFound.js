@@ -12,7 +12,9 @@ const NotFound = () => {
     const element = document.documentElement;
 
     const handleMouseMove = e => {
-      element.style.setProperty('--x', e.clientX + 'px');
+      if (window.innerWidth > 767) {
+        element.style.setProperty('--x', e.clientX + 'px');
+      }
     };
 
     element.addEventListener("mousemove", handleMouseMove);

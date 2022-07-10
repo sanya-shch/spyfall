@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 
-import { ToastContext } from "../../components/Toast";
-
+// import { ToastContext } from "../../components/Toast";
 import { db } from "../../firebase";
 import Input from "../../components/Input";
+import CircleButton from "../../components/CircleButton";
 
 import './style.css';
 
@@ -14,13 +14,13 @@ const Join = () => {
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const { setToast } = useContext(ToastContext);
-  useEffect(() => {
-    setToast({
-      message: "Enter a ROOM CODE to join a game.",
-      type: 'info',
-    })
-  }, [setToast]);
+  // const { setToast } = React.useContext(ToastContext);
+  // React.useEffect(() => {
+  //   setToast({
+  //     message: "Enter a ROOM CODE to join a game.",
+  //     type: 'info',
+  //   })
+  // }, [setToast]);
 
   async function handleClickJoin() {
     if (code !== '') {
@@ -58,13 +58,16 @@ const Join = () => {
           maxLength={6}
           onChange={handleChange}
         />
-        <button className="cta" onClick={handleClickJoin}>
-          <span>Join Game</span>
-          <svg width="13px" height="10px" viewBox="0 0 13 10">
-            <path d="M1,5 L11,5" />
-            <polyline points="8 1 12 5 8 9" />
-          </svg>
-        </button>
+        <CircleButton
+          handleClick={handleClickJoin}
+          text='Join Game'
+          svg={(
+            <svg width="16px" height="16px" viewBox="0 0 13 10">
+              <path d="M1,5 L11,5" />
+              <polyline points="8 1 12 5 8 9" />
+            </svg>
+          )}
+        />
       </div>
       <p className="error italic"> {error}</p>
     </section>

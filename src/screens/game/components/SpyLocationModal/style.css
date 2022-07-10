@@ -76,6 +76,7 @@
 }
 .spy-location-modal .list-item img {
   width: 100px;
+  margin: 0 auto;
 }
 .spy-location-modal .list-item.checked {
   background-color: #bbded6;
@@ -90,4 +91,23 @@
 .spy-location-modal .btn-block .ripple-btn {
   width: 46%;
   margin: 10px;
+}
+
+@media (max-width: 768px) {
+  .spy-location-modal .modal-content {
+    width: 100%;
+  }
+  .spy-location-modal .btn-block {
+    flex-direction: column;
+    margin-top: 10px;
+  }
+  .spy-location-modal .btn-block .ripple-btn {
+    width: 95%;
+  }
+  .spy-location-modal .location-list-block {
+    padding-right: 0;
+  }
+  .spy-location-modal .list-item img {
+    margin: 0 auto;
+  }
 }

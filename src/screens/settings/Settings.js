@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { ToastContext } from "../../components/Toast";
-
+// import { ToastContext } from "../../components/Toast";
 import { getUserId } from "../../helpers/userId";
 import { getSixLetterCode, startGame, updateErrorMessage } from "./helpers";
 import Input from "../../components/Input";
+import CircleButton from "../../components/CircleButton";
 
 import './style.css';
 
@@ -21,13 +21,13 @@ const Settings = ({ gameId, setGameId }) => {
 
   const uuid = getUserId();
 
-  const { setToast } = useContext(ToastContext);
-  useEffect(() => {
-    setToast({
-      message: "Enter a USERNAME to create a game.",
-      type: 'info',
-    });
-  }, [setToast]);
+  // const { setToast } = React.useContext(ToastContext);
+  // useEffect(() => {
+  //   setToast({
+  //     message: "Enter a USERNAME to create a game.",
+  //     type: 'info',
+  //   });
+  // }, [setToast]);
 
   useEffect(() => {
     setGameId(getSixLetterCode());
@@ -93,12 +93,15 @@ const Settings = ({ gameId, setGameId }) => {
           maxLength={15}
           onChange={handleChangeUsername}
         />
-        <button className="cta" onClick={handleClickCreateGame}>
-          <span>Create Game</span>
-          <svg width="16" height="16" viewBox="0 0 16 16">
-            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
-          </svg>
-        </button>
+        <CircleButton
+          handleClick={handleClickCreateGame}
+          text='Create Game'
+          svg={(
+            <svg width="16" height="16" viewBox="0 0 16 16">
+              <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg>
+          )}
+        />
       </div>
       {errorMessage ? (
         <p className="info error italic"> {errorMessage}</p>

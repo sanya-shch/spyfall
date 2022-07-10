@@ -14,8 +14,11 @@ const Error = () => {
 
   return (
     <section className="errors-page">
-      <div className="stripe_inner">Yikes! Looks like you have stumbled upon the wall of non-existance! ...or
-        perhaps just a finished game.</div>
+      <div className="stripe_inner">
+        <span className="desktop">Yikes! Looks like you have stumbled upon the wall of non-existance! ...or
+        perhaps just a finished game.</span>
+        <span className="mobile">Yikes!</span>
+      </div>
       <Button
         text="Go To Home"
         color="#ca3e47"

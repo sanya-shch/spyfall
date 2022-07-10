@@ -9,7 +9,7 @@ import CircleTimer from "../../../../components/CircleTimer";
 
 import './style.css';
 
-const time = 3;
+// const time = 3;
 
 function VotingModal({
                        id,
@@ -22,6 +22,7 @@ function VotingModal({
                        playerData,
                        spyUid,
                        isHost,
+                       isSpy,
                      }) {
   const exhibited = useMemo(() => playerData.find(player => player.uid === exhibitedUid), [playerData, exhibitedUid]);
   const exhibitor = useMemo(() => playerData.find(player => player.uid === exhibitorUid), [playerData, exhibitorUid]);
@@ -112,6 +113,15 @@ function VotingModal({
                 : 'danger',
         });
 
+        if (!isSpy) {
+          const spyData = playerData.find(player => spyUid.includes(player.uid));
+
+          setToast({
+            message: `${spyData?.username || '???'} was a spy.`,
+            type: 'info',
+          });
+        }
+
         handleClose();
       }, 12000);
     }
@@ -129,6 +139,7 @@ function VotingModal({
     setToast,
     spyUid,
     uuid,
+    isSpy,
   ]);
 
   useEffect(() => {
@@ -169,7 +180,8 @@ function VotingModal({
             {/*  </svg>*/}
             {/*</button>*/}
 
-            {isAllPlayerVoting && <CircleTimer time={time || 0.75} />}
+            {isAllPlayerVoting && <CircleTimer />}
+            {/* isAllPlayerVoting && <CircleTimer time={time || 0.75} /> */}
           </div>
 
           <div className="modal-description"><span>{exhibitor?.username}</span> put <span>{exhibited?.username}</span> to the vote</div>
