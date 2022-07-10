@@ -2,6 +2,7 @@
   "name": "spyfall",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://sanya-shch.github.io/spyfall/",
   "dependencies": {
     "copy-to-clipboard": "3.3.1",
     "firebase": "9.8.4",
