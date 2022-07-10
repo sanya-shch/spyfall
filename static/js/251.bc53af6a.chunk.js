@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkspyfall=self.webpackChunkspyfall||[]).push([[251],{2251:function(s,e,t){t.r(e),t.d(e,{default:function(){return c}});var a=t(2791),i=t(8380),n=t(184),c=function(s){var e=s.isSpy,t=s.locationData,c=(0,a.useMemo)((function(){return e?i.Y.spy:i.Y[t.id]}),[e,t]);return(0,n.jsxs)("div",{className:"game-card",children:[(0,n.jsx)("i",{}),(0,n.jsx)("img",{alt:"",src:c,width:"300",height:"300"}),(0,n.jsx)("div",{className:"text",children:e?"YOU ARE THE SPY!":(0,n.jsx)("span",{children:t.title})})]})}}}]);
+//# sourceMappingURL=251.bc53af6a.chunk.js.map
