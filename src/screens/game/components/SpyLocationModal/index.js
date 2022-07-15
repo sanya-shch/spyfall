@@ -6,7 +6,7 @@ import { db } from "../../../../firebase";
 import ReactPortal from "../../../../components/ConfirmModal/ReactPortal";
 import Button from "../../../../components/RippleButton";
 import { IMAGES } from "../../../../assets/images";
-import locations from "../../../../constants/locations";
+// import locations from "../../../../constants/locations";
 
 import './style.css';
 
@@ -17,6 +17,7 @@ function SpyLocationModal({
                             handleClose,
                             playerData,
                             location,
+                            locationsList,
                          }) {
   const [choosenLocation, setChoosenLocation] = useState(null);
 
@@ -87,6 +88,7 @@ function SpyLocationModal({
 
         spy_uid: [],
         location: { title: '',  id: '' },
+        locations_list: [],
         ongoing_game: false,
         midgame_player_uid: [],
         // startedAt: null,
@@ -124,7 +126,7 @@ function SpyLocationModal({
           </div>
 
           <div className="location-list-block">
-            {locations.map(item => (
+            {locationsList.map(item => (
               <div
                 key={item.id}
                 className={`list-item ${choosenLocation && choosenLocation.id === item.id ? 'checked' : ''}`}

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import { IMAGES } from "../../../../assets/images";
-import locations from "../../../../constants/locations";
+// import locations from "../../../../constants/locations";
 
 import './style.css';
 
-const GameCard = ({ isSpy, isMidGamePlayer, showJoinForm, ongoingGame }) => {
-  const [checkedArr, setCheckedArr] = useState(locations);
+const GameCard = ({ isSpy, isMidGamePlayer, showJoinForm, ongoingGame, locationsList }) => {
+  const [checkedArr, setCheckedArr] = useState(locationsList);
 
   useEffect(() => {
-    setCheckedArr(locations);
+    setCheckedArr(locationsList);
   }, [ongoingGame]);
 
   const LocationListItem = ({ item, index }) => {

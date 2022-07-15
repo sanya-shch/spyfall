@@ -21,7 +21,7 @@ import VotingModal from "./components/VotingModal";
 import SpyLocationModal from "./components/SpyLocationModal";
 import Button from "../../components/RippleButton";
 import Input from "../../components/Input";
-import { getLocationData } from "../../helpers";
+import { getRandomLocationsData } from "../../helpers";
 // import GameCard from "./components/GameCard";
 // import GameBlock from "./components/GameBlock";
 // import NameList from "./components/NameList";
@@ -253,10 +253,11 @@ const Game = () => {
         randomUid.push(gameData.player_data_arr[spyTwo].uid);
       }
 
-      const locationData = getLocationData();
+      const locationsData = getRandomLocationsData(30);
       await updateDoc(doc(db, "game_rooms", id), {
         spy_uid: randomUid,
-        location: { title: locationData.title,  id: locationData.id },
+        location: { title: locationsData.location.title,  id: locationsData.location.id },
+        locations_list: locationsData.locationsList,
         ongoing_game: true,
         // startedAt: serverTimestamp(),
         timeData: arrayUnion({ time: Timestamp.now(), status: 'start' }),
@@ -271,6 +272,7 @@ const Game = () => {
     await updateDoc(doc(db, "game_rooms", id), {
       spy_uid: [],
       location: { title: '',  id: '' },
+      locations_list: [],
       ongoing_game: false,
       midgame_player_uid: [],
       // startedAt: null,
@@ -444,6 +446,7 @@ const Game = () => {
 
           spy_uid: [],
           location: { title: '',  id: '' },
+          locations_list: [],
           ongoing_game: false,
           midgame_player_uid: [],
           // startedAt: null,
@@ -537,6 +540,7 @@ const Game = () => {
             isMidGamePlayer={isMidGamePlayer}
             showJoinForm={showJoinForm}
             ongoingGame={ongoingGame}
+            locationsList={gameData?.locations_list}
           />
         </Suspense>
       )}
@@ -698,6 +702,7 @@ const Game = () => {
         isOpen={isSpyLocationModalOpen}
         playerData={gameData?.player_data_arr}
         location={gameData?.location}
+        locationsList={gameData?.locations_list}
         id={id}
         uuid={uuid}
       />}

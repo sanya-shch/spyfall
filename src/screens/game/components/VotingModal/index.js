@@ -84,6 +84,7 @@ function VotingModal({
 
               spy_uid: [],
               location: { title: '',  id: '' },
+              locations_list: [],
               ongoing_game: false,
               midgame_player_uid: [],
               // startedAt: null,
