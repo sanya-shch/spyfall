@@ -20,6 +20,7 @@ section.home .main-title {
   z-index: 1;
   user-select: none;
   border: 2px solid #DCDDD8;
+  font-family: "Poppins", sans-serif !important;
 }
 
 section.home button.ns-btn {
@@ -29,6 +30,11 @@ section.home button.ns-btn {
   background-color:  #DCDDD8;
   color:  #DCDDD8;
 }
+
+section.home button.ns-btn span {
+  font-family: "Poppins", sans-serif !important;
+}
+
 section.home button.ns-btn:nth-of-type(1) {
   top: 50%;
 }

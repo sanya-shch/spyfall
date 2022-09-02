@@ -33,6 +33,8 @@ function SpyLocationModal({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+    }
+    if (isOpen && window.innerWidth > 767) {
       document.getElementById('root').style.filter = 'blur(2px)';
     }
 

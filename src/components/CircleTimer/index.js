@@ -2,7 +2,7 @@ import React from "react";
 
 import "./style.css";
 
-const CircleTimer = ({ time }) => {
+const CircleTimer = () => {
   return (
     <div className="loader-container">
       <svg>

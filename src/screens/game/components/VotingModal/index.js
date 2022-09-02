@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useContext } from "react";
+import React, { useEffect, useMemo, useContext, useCallback } from "react";
 import { arrayUnion, doc, Timestamp, updateDoc } from "firebase/firestore";
 
 import { ToastContext } from "../../../../components/Toast";
@@ -40,97 +40,88 @@ function VotingModal({
     [playerData, voteScore, exhibitedUid]
   );
 
-  useEffect(() => {
-    let timer;
-
-    if (isAllPlayerVoting) {
-      timer = setTimeout(() => {
-        if (isHost) {
-          if (!isVotingOver) {
-            updateDoc(doc(db, "game_rooms", id), {
-              vote_exhibited_uid: '',
-              vote_exhibitor_uid: '',
-              vote_score: {},
-              timeData: arrayUnion({ time: Timestamp.now(), status: 'start' }),
-            });
-          } else {
-            const isExhibitedSpy = spyUid.includes(exhibitedUid);
-
-            const player_data_arr = isExhibitedSpy
-              ? playerData.map(player => {
-                if (exhibitorUid === player.uid) {
-                  return { ...player, points: player.points + 2 };
-                }
-                if (!spyUid.includes(player.uid)) {
-                  return { ...player, points: player.points + 1 };
-                }
-
-                return player;
-              })
-              : playerData.map(player => {
-                if (spyUid.includes(player.uid)) {
-                  return { ...player, points: player.points + 4 }
-                }
-
-                return player;
-              });
-
-            updateDoc(doc(db, "game_rooms", id), {
-              vote_exhibited_uid: '',
-              vote_exhibitor_uid: '',
-              vote_score: {},
-
-              player_data_arr,
-
-              spy_uid: [],
-              location: { title: '',  id: '' },
-              locations_list: [],
-              ongoing_game: false,
-              midgame_player_uid: [],
-              // startedAt: null,
-              timeData: [],
-            });
-          }
-        }
-
-        setToast({
-          message: !isVotingOver
-            ? 'Voting failed'
-            : isVotingOver && spyUid.includes(exhibitedUid)
-              ? spyUid.includes(uuid)
-                ? 'You are exposed.'
-                : 'Spy exposed.'
-              : spyUid.includes(uuid)
-                ? 'The players made a mistake.'
-                : 'Unfortunately, this player is not a spy.',
-          type: !isVotingOver
-            ? 'danger'
-            : isVotingOver && spyUid.includes(exhibitedUid)
-              ? spyUid.includes(uuid)
-                ? 'danger'
-                : 'success'
-              : spyUid.includes(uuid)
-                ? 'success'
-                : 'danger',
+  const votingHandler = useCallback(() => {
+    if (isHost) {
+      if (!isVotingOver) {
+        updateDoc(doc(db, "game_rooms", id), {
+          vote_exhibited_uid: '',
+          vote_exhibitor_uid: '',
+          vote_score: {},
+          timeData: arrayUnion({ time: Timestamp.now(), status: 'start' }),
         });
+      } else {
+        const isExhibitedSpy = spyUid.includes(exhibitedUid);
 
-        if (!isSpy) {
-          const spyData = playerData.find(player => spyUid.includes(player.uid));
+        const player_data_arr = isExhibitedSpy
+          ? playerData.map(player => {
+            if (exhibitorUid === player.uid) {
+              return { ...player, points: player.points + 2 };
+            }
+            if (!spyUid.includes(player.uid)) {
+              return { ...player, points: player.points + 1 };
+            }
 
-          setToast({
-            message: `${spyData?.username || '???'} was a spy.`,
-            type: 'info',
+            return player;
+          })
+          : playerData.map(player => {
+            if (spyUid.includes(player.uid)) {
+              return { ...player, points: player.points + 4 }
+            }
+
+            return player;
           });
-        }
 
-        handleClose();
-      }, 12000);
+        updateDoc(doc(db, "game_rooms", id), {
+          vote_exhibited_uid: '',
+          vote_exhibitor_uid: '',
+          vote_score: {},
+
+          player_data_arr,
+
+          spy_uid: [],
+          location: { title: '',  id: '' },
+          locations_list: [],
+          ongoing_game: false,
+          midgame_player_uid: [],
+          // startedAt: null,
+          timeData: [],
+        });
+      }
     }
 
-    return () => clearTimeout(timer);
+    setToast({
+      message: !isVotingOver
+        ? 'Voting failed'
+        : isVotingOver && spyUid.includes(exhibitedUid)
+          ? spyUid.includes(uuid)
+            ? 'You are exposed.'
+            : 'Spy exposed.'
+          : spyUid.includes(uuid)
+            ? 'The players made a mistake.'
+            : 'Unfortunately, this player is not a spy.',
+      type: !isVotingOver
+        ? 'danger'
+        : isVotingOver && spyUid.includes(exhibitedUid)
+          ? spyUid.includes(uuid)
+            ? 'danger'
+            : 'success'
+          : spyUid.includes(uuid)
+            ? 'success'
+            : 'danger',
+    });
+
+    if (!isSpy && isVotingOver && spyUid.includes(exhibitedUid)) {
+      const spyData = playerData.find(player => spyUid.includes(player.uid));
+
+      setToast({
+        message: `${spyData?.username || '???'} was a spy.`,
+        type: 'info',
+      });
+    }
+
+    handleClose();
   }, [
     isVotingOver,
-    isAllPlayerVoting,
     exhibitedUid,
     exhibitorUid,
     handleClose,
@@ -140,12 +131,29 @@ function VotingModal({
     setToast,
     spyUid,
     uuid,
-    isSpy,
+    isSpy
+  ]);
+
+  useEffect(() => {
+    let timer;
+
+    if (isAllPlayerVoting) {
+      timer = setTimeout(() => {
+        votingHandler();
+      }, 7000);
+    }
+
+    return () => clearTimeout(timer);
+  }, [
+    isAllPlayerVoting,
+    // votingHandler,
   ]);
 
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+    }
+    if (isOpen && window.innerWidth > 767) {
       document.getElementById('root').style.filter = 'blur(2px)';
     }
 
@@ -210,9 +218,7 @@ function VotingModal({
           </div>
 
           <div className="btn-block">
-            {isVotingOver ? (
-              <h2>voting is over</h2>
-            ) : exhibitedUid !== uuid ? (
+            {exhibitedUid !== uuid ? (
               <>
                 <Button
                   text="Not a spy"

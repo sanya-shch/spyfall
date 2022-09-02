@@ -25,6 +25,8 @@ function ConfirmModal({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
+    }
+    if (isOpen && window.innerWidth > 767) {
       document.getElementById('root').style.filter = 'blur(2px)';
     }
 
@@ -34,7 +36,7 @@ function ConfirmModal({
     };
   }, [isOpen]);
 
-  if (!isOpen) return null;
+  if (!isOpen) return;
 
   return (
     <ReactPortal wrapperId="react-portal-confirm-modal-container">

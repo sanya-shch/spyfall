@@ -93,7 +93,7 @@
   transform: translate(2px, 2px);
   stroke-dasharray: 100;
   stroke-dashoffset: 100;
-  animation: svg-circle-timer-animate 12s linear forwards;
+  animation: svg-circle-timer-animate 6s linear forwards;
 }
 @keyframes svg-circle-timer-animate {
   0%, 100% {

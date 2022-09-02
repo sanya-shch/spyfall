@@ -37,6 +37,7 @@ section.not-found .text h2 {
 section.not-found .text h2 span {
     color: #0f0;
     margin: 0 10px;
+  font-family: "Poppins", sans-serif !important;
 }
 
 section.not-found .text h2 span:nth-child(even) {

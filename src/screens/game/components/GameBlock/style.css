@@ -1,5 +1,4 @@
 .game-block {
-  /*width: max(80vw, 300px);*/
   width: 80vw;
   max-width: 1536px;
   display: flex;
@@ -15,16 +14,11 @@
   text-align: center;
   margin: 20px 10px 0;
   position: relative;
-  /*height: 272px;*/
 }
 .game-block .location-item div {
   color: #313131;
   font-weight: bold;
   margin-top: 10px;
-}
-.game-block .location-item img {
-  /*width: 200px;*/
-  /*width: max(20vh, 200px);*/
 }
 .game-block .location-item img.checked {
   filter: blur(10px);
@@ -33,8 +27,6 @@
 .game-block .location-item svg {
   fill: #ca3e47;
   position: absolute;
-  /*width: 200px;*/
-  /*height: 200px;*/
   top: 15px;
   left: 15px;
   width: max(20vh, 200px);
@@ -58,5 +50,15 @@
     width: 150px;
     height: 150px;
     object-fit: contain;
+  }
+  .game-block .location-item svg {
+    width: 150px;
+    height: 150px;
+  }
+}
+@media (max-width: 400px) {
+  .game-block .location-item svg {
+    width: calc(47vw - 36px);
+    height: calc(47vw - 36px);
   }
 }
