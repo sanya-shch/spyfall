@@ -7,11 +7,11 @@ import { db } from "../../firebase";
 import Input from "../../components/Input";
 import CircleButton from "../../components/CircleButton";
 
-import './style.css';
+import "./style.css";
 
 const Join = () => {
-  const [code, setCode] = useState('');
-  const [error, setError] = useState('');
+  const [code, setCode] = useState("");
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   // const { setToast } = React.useContext(ToastContext);
@@ -23,7 +23,7 @@ const Join = () => {
   // }, [setToast]);
 
   async function handleClickJoin() {
-    if (code !== '') {
+    if (code !== "") {
       const codesDoc = await getDoc(doc(db, "game_room_codes", "code_array"));
 
       if (codesDoc.data().codes.indexOf(code) !== -1) {
@@ -36,8 +36,8 @@ const Join = () => {
     }
   }
 
-  const handleChange = value => {
-    setError('');
+  const handleChange = (value) => {
+    setError("");
     setCode(value.toUpperCase());
   };
 
@@ -45,7 +45,7 @@ const Join = () => {
     <section className="join-page">
       <h2
         className="game-title"
-        onClick={() => navigate('/')}
+        onClick={() => navigate("/")}
         tabIndex={0}
         role="button"
       >
@@ -60,13 +60,13 @@ const Join = () => {
         />
         <CircleButton
           handleClick={handleClickJoin}
-          text='Join Game'
-          svg={(
+          text="Join Game"
+          svg={
             <svg width="16px" height="16px" viewBox="0 0 13 10">
               <path d="M1,5 L11,5" />
               <polyline points="8 1 12 5 8 9" />
             </svg>
-          )}
+          }
         />
       </div>
       <p className="error italic"> {error}</p>

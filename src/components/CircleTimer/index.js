@@ -9,7 +9,7 @@ const CircleTimer = () => {
         <circle cx="15" cy="15" r="15" />
       </svg>
     </div>
-  )
+  );
 };
 
 // const CircleTimer = ({ time }) => {

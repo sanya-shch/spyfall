@@ -1,48 +1,48 @@
 section.not-found {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    overflow: hidden;
-    background-color: #111;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #111;
 }
 
 section.not-found .text {
-    position: relative;
-    transform: skewY(345deg) translateY(-200px);
-    animation: animateColor 5s linear infinite;
-    user-select: none;
+  position: relative;
+  transform: skewY(345deg) translateY(-200px);
+  animation: animateColor 5s linear infinite;
+  user-select: none;
 }
 
 @keyframes animateColor {
-    0% {
-        filter: hue-rotate(0deg);
-    }
-    100% {
-        filter: hue-rotate(360deg);
-    }
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
 }
 
 section.not-found .text h2 {
-    position: relative;
-    width: 100%;
-    font-size: 8em;
-    color: #fff;
-    pointer-events: none;
-    line-height: 1em;
-    white-space: nowrap;
-    text-shadow: calc(var(--x)) 100px 0 rgba(255,255,255,0.1);
-    transform: translateX(calc(0% - var(--x) * var(--i)));
+  position: relative;
+  width: 100%;
+  font-size: 8em;
+  color: #fff;
+  pointer-events: none;
+  line-height: 1em;
+  white-space: nowrap;
+  text-shadow: calc(var(--x)) 100px 0 rgba(255, 255, 255, 0.1);
+  transform: translateX(calc(0% - var(--x) * var(--i)));
 }
 
 section.not-found .text h2 span {
-    color: #0f0;
-    margin: 0 10px;
+  color: #0f0;
+  margin: 0 10px;
   font-family: "Poppins", sans-serif !important;
 }
 
 section.not-found .text h2 span:nth-child(even) {
-    color: transparent;
-    -webkit-text-stroke: 2px #fff;
+  color: transparent;
+  -webkit-text-stroke: 2px #fff;
 }
 
 /*button.nfs-btn {*/
@@ -112,8 +112,8 @@ section.not-found button.ns-btn {
   position: absolute;
   left: 50%;
   top: 80%;
-  transform: translate(-50%,-50%);
-  background-color:  #DCDDD8;
-  color:  #DCDDD8;
+  transform: translate(-50%, -50%);
+  background-color: #dcddd8;
+  color: #dcddd8;
   margin-bottom: 50px;
 }

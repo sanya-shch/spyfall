@@ -7,17 +7,17 @@ import { getSixLetterCode, startGame, updateErrorMessage } from "./helpers";
 import Input from "../../components/Input";
 import CircleButton from "../../components/CircleButton";
 
-import './style.css';
+import "./style.css";
 
 const Settings = ({ gameId, setGameId }) => {
   const navigate = useNavigate();
 
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   // const [spyCount, setSpyCount] = useState('1');
-  const spyCount = '1';
+  const spyCount = "1";
 
   const [minPlayers, setMinPlayers] = useState(3);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   const uuid = getUserId();
 
@@ -72,7 +72,7 @@ const Settings = ({ gameId, setGameId }) => {
     }
   };
 
-  const handleChangeUsername = value => {
+  const handleChangeUsername = (value) => {
     setUsername(value);
   };
 
@@ -80,7 +80,7 @@ const Settings = ({ gameId, setGameId }) => {
     <section className="settings-page">
       <h2
         className="game-title"
-        onClick={() => navigate('/')}
+        onClick={() => navigate("/")}
         tabIndex={0}
         role="button"
       >
@@ -95,12 +95,12 @@ const Settings = ({ gameId, setGameId }) => {
         />
         <CircleButton
           handleClick={handleClickCreateGame}
-          text='Create Game'
-          svg={(
+          text="Create Game"
+          svg={
             <svg width="16" height="16" viewBox="0 0 16 16">
-              <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+              <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
             </svg>
-          )}
+          }
         />
       </div>
       {errorMessage ? (

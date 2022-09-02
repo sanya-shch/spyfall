@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "../../components/Button";
 
-import './style.css';
+import "./style.css";
 
 const Error = () => {
   const navigate = useNavigate();
@@ -15,15 +15,13 @@ const Error = () => {
   return (
     <section className="errors-page">
       <div className="stripe_inner">
-        <span className="desktop">Yikes! Looks like you have stumbled upon the wall of non-existance! ...or
-        perhaps just a finished game.</span>
+        <span className="desktop">
+          Yikes! Looks like you have stumbled upon the wall of non-existance!
+          ...or perhaps just a finished game.
+        </span>
         <span className="mobile">Yikes!</span>
       </div>
-      <Button
-        text="Go To Home"
-        color="#ca3e47"
-        onClick={handleClick}
-      />
+      <Button text="Go To Home" color="#ca3e47" onClick={handleClick} />
     </section>
   );
 };

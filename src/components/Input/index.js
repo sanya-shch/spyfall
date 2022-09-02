@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import './style.css';
+import "./style.css";
 
 const Input = ({ value, label, onChange, ...restProps }) => {
-  const handleChange = event => {
+  const handleChange = (event) => {
     const { value: eventValue } = event.target;
     onChange(eventValue);
   };
@@ -15,11 +15,11 @@ const Input = ({ value, label, onChange, ...restProps }) => {
         required="required"
         value={value}
         onChange={handleChange}
-        { ...restProps }
+        {...restProps}
       />
       <span>{label}</span>
     </div>
-  )
+  );
 };
 
 export default Input;

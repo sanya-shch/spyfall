@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import { ReactComponent as SpySvg } from "../../assets/user-secret-solid.svg";
 import { ReactComponent as UserSvg } from "../../assets/user-solid.svg";
@@ -8,7 +8,7 @@ import { ReactComponent as GraduateSvg } from "../../assets/user-graduate-solid.
 import { ReactComponent as NinjaSvg } from "../../assets/user-ninja-solid.svg";
 import { ReactComponent as UserTieSvg } from "../../assets/user-tie-solid.svg";
 
-import './style.css';
+import "./style.css";
 
 const oldBD = (
   <>
@@ -215,7 +215,7 @@ const oldBD = (
         <UserSvg />
         <DoctorSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -232,7 +232,7 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
@@ -275,7 +275,7 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}} />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
       </div>
@@ -289,7 +289,7 @@ const oldBD = (
         <UserSvg />
         <DoctorSvg />
         <UserSvg />
-        <SpySvg  style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -315,57 +315,7 @@ const oldBD = (
         <UserSvg />
         <DoctorSvg />
         <UserSvg />
-        <SpySvg  style={{"--svgclr":"#ca3e47"}}/>
-        <UserSvg />
-        <GraduateSvg />
-        <UserSvg />
-        <UserSvg />
-        <NinjaSvg />
-        <UserSvg />
-        <UserTieSvg />
-        <UserSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <UserSvg />
-      </div>
-      <div>
-        <UserSvg />
-        <UserSvg />
-        <SpySvg/>
-        <UserSvg />
-        <UserSvg />
-        <AstronautSvg />
-        <UserSvg />
-        <DoctorSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <GraduateSvg />
-        <UserSvg />
-        <UserSvg />
-        <NinjaSvg />
-        <UserSvg />
-        <UserTieSvg />
-        <UserSvg />
-        <UserSvg />
-        <SpySvg  style={{"--svgclr":"#ca3e47"}}/>
-        <UserSvg />
-        <UserSvg />
-      </div>
-    </div>
-    <div className="row">
-      <div>
-        <UserSvg />
-        <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
-        <UserSvg />
-        <UserSvg />
-        <AstronautSvg />
-        <UserSvg />
-        <DoctorSvg />
-        <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -389,7 +339,7 @@ const oldBD = (
         <UserSvg />
         <DoctorSvg />
         <UserSvg />
-        <SpySvg  style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -399,7 +349,7 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
       </div>
@@ -408,7 +358,7 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
@@ -416,56 +366,6 @@ const oldBD = (
         <DoctorSvg />
         <UserSvg />
         <SpySvg />
-        <UserSvg />
-        <GraduateSvg />
-        <UserSvg />
-        <UserSvg />
-        <NinjaSvg />
-        <UserSvg />
-        <UserTieSvg />
-        <UserSvg />
-        <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
-        <UserSvg />
-        <UserSvg />
-      </div>
-      <div>
-        <UserSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <UserSvg />
-        <AstronautSvg />
-        <UserSvg />
-        <DoctorSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <GraduateSvg />
-        <UserSvg />
-        <UserSvg />
-        <NinjaSvg />
-        <UserSvg />
-        <UserTieSvg />
-        <UserSvg />
-        <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
-        <UserSvg />
-        <UserSvg />
-      </div>
-    </div>
-    <div className="row">
-      <div>
-        <UserSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <UserSvg />
-        <AstronautSvg />
-        <UserSvg />
-        <DoctorSvg />
-        <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -489,7 +389,7 @@ const oldBD = (
         <UserSvg />
         <DoctorSvg />
         <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -525,7 +425,7 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
       </div>
@@ -549,7 +449,7 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
       </div>
@@ -558,14 +458,14 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
         <UserSvg />
         <DoctorSvg />
         <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -582,7 +482,7 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
@@ -625,7 +525,7 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
       </div>
@@ -649,7 +549,7 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
       </div>
@@ -658,57 +558,7 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <UserSvg />
-        <AstronautSvg />
-        <UserSvg />
-        <DoctorSvg />
-        <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
-        <UserSvg />
-        <GraduateSvg />
-        <UserSvg />
-        <UserSvg />
-        <NinjaSvg />
-        <UserSvg />
-        <UserTieSvg />
-        <UserSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <UserSvg />
-      </div>
-      <div>
-        <UserSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <UserSvg />
-        <AstronautSvg />
-        <UserSvg />
-        <DoctorSvg />
-        <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
-        <UserSvg />
-        <GraduateSvg />
-        <UserSvg />
-        <UserSvg />
-        <NinjaSvg />
-        <UserSvg />
-        <UserTieSvg />
-        <UserSvg />
-        <UserSvg />
-        <SpySvg />
-        <UserSvg />
-        <UserSvg />
-      </div>
-    </div>
-    <div className="row">
-      <div>
-        <UserSvg />
-        <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
@@ -732,7 +582,7 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
@@ -758,7 +608,7 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
@@ -775,14 +625,14 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <UserSvg />
       </div>
       <div>
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg />
         <UserSvg />
         <UserSvg />
         <AstronautSvg />
@@ -790,6 +640,56 @@ const oldBD = (
         <DoctorSvg />
         <UserSvg />
         <SpySvg />
+        <UserSvg />
+        <GraduateSvg />
+        <UserSvg />
+        <UserSvg />
+        <NinjaSvg />
+        <UserSvg />
+        <UserTieSvg />
+        <UserSvg />
+        <UserSvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
+        <UserSvg />
+        <UserSvg />
+      </div>
+    </div>
+    <div className="row">
+      <div>
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+        <AstronautSvg />
+        <UserSvg />
+        <DoctorSvg />
+        <UserSvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
+        <UserSvg />
+        <GraduateSvg />
+        <UserSvg />
+        <UserSvg />
+        <NinjaSvg />
+        <UserSvg />
+        <UserTieSvg />
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+      </div>
+      <div>
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+        <AstronautSvg />
+        <UserSvg />
+        <DoctorSvg />
+        <UserSvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -858,6 +758,56 @@ const oldBD = (
       <div>
         <UserSvg />
         <UserSvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
+        <UserSvg />
+        <UserSvg />
+        <AstronautSvg />
+        <UserSvg />
+        <DoctorSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <GraduateSvg />
+        <UserSvg />
+        <UserSvg />
+        <NinjaSvg />
+        <UserSvg />
+        <UserTieSvg />
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+      </div>
+      <div>
+        <UserSvg />
+        <UserSvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
+        <UserSvg />
+        <UserSvg />
+        <AstronautSvg />
+        <UserSvg />
+        <DoctorSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <GraduateSvg />
+        <UserSvg />
+        <UserSvg />
+        <NinjaSvg />
+        <UserSvg />
+        <UserTieSvg />
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+      </div>
+    </div>
+    <div className="row">
+      <div>
+        <UserSvg />
+        <UserSvg />
         <SpySvg />
         <UserSvg />
         <UserSvg />
@@ -875,7 +825,7 @@ const oldBD = (
         <UserTieSvg />
         <UserSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg />
         <UserSvg />
         <UserSvg />
       </div>
@@ -889,7 +839,57 @@ const oldBD = (
         <UserSvg />
         <DoctorSvg />
         <UserSvg />
-        <SpySvg style={{"--svgclr":"#ca3e47"}}/>
+        <SpySvg />
+        <UserSvg />
+        <GraduateSvg />
+        <UserSvg />
+        <UserSvg />
+        <NinjaSvg />
+        <UserSvg />
+        <UserTieSvg />
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+      </div>
+    </div>
+    <div className="row">
+      <div>
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+        <AstronautSvg />
+        <UserSvg />
+        <DoctorSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <GraduateSvg />
+        <UserSvg />
+        <UserSvg />
+        <NinjaSvg />
+        <UserSvg />
+        <UserTieSvg />
+        <UserSvg />
+        <UserSvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
+        <UserSvg />
+        <UserSvg />
+      </div>
+      <div>
+        <UserSvg />
+        <UserSvg />
+        <SpySvg />
+        <UserSvg />
+        <UserSvg />
+        <AstronautSvg />
+        <UserSvg />
+        <DoctorSvg />
+        <UserSvg />
+        <SpySvg style={{ "--svgclr": "#ca3e47" }} />
         <UserSvg />
         <GraduateSvg />
         <UserSvg />
@@ -1114,81 +1114,103 @@ function getRandomInt(min, max) {
 }
 
 const HomeBG = () => {
-  const newBD = React.useMemo(() => Array(22).fill(0).map((item, index) => (
-    <div className="row" key={`row_item_${index.toString()}`}>
-      <div>
-        {Array(20).fill(0).map((insideItem, insideIndex) => {
-          const randomNumber = getRandomInt(1, 10);
-          let Component = UserSvg;
+  const newBD = React.useMemo(
+    () =>
+      Array(22)
+        .fill(0)
+        .map((item, index) => (
+          <div className="row" key={`row_item_${index.toString()}`}>
+            <div>
+              {Array(20)
+                .fill(0)
+                .map((insideItem, insideIndex) => {
+                  const randomNumber = getRandomInt(1, 10);
+                  let Component = UserSvg;
 
-          if (randomNumber === 1) {
-            Component = SpySvg;
-          } else if (randomNumber === 2) {
-            Component = SpySvg;
-          } else if (randomNumber === 3) {
-            Component = AstronautSvg;
-          } else if (randomNumber === 4) {
-            Component = DoctorSvg;
-          } else if (randomNumber === 5) {
-            Component = GraduateSvg;
-          } else if (randomNumber === 6) {
-            Component = NinjaSvg;
-          } else if (randomNumber === 7) {
-            Component = UserTieSvg;
-          } else if (randomNumber === 8) {
-            Component = UserSvg;
-          } else if (randomNumber === 9) {
-            Component = UserSvg;
-          }
+                  if (randomNumber === 1) {
+                    Component = SpySvg;
+                  } else if (randomNumber === 2) {
+                    Component = SpySvg;
+                  } else if (randomNumber === 3) {
+                    Component = AstronautSvg;
+                  } else if (randomNumber === 4) {
+                    Component = DoctorSvg;
+                  } else if (randomNumber === 5) {
+                    Component = GraduateSvg;
+                  } else if (randomNumber === 6) {
+                    Component = NinjaSvg;
+                  } else if (randomNumber === 7) {
+                    Component = UserTieSvg;
+                  } else if (randomNumber === 8) {
+                    Component = UserSvg;
+                  } else if (randomNumber === 9) {
+                    Component = UserSvg;
+                  }
 
-          return (
-            <React.Fragment key={`row_item_one_${insideIndex.toString()}`}>
-              <Component style={randomNumber === 1 ? {"--svgclr":"#ca3e47"} : {}} />
-            </React.Fragment>
-          );
-        })}
-      </div>
-      <div>
-        {Array(20).fill(0).map((insideItem, insideIndex) => {
-          const randomNumber = getRandomInt(1, 10);
-          let Component = UserSvg;
+                  return (
+                    <React.Fragment
+                      key={`row_item_one_${insideIndex.toString()}`}
+                    >
+                      <Component
+                        style={
+                          randomNumber === 1 ? { "--svgclr": "#ca3e47" } : {}
+                        }
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </div>
+            <div>
+              {Array(20)
+                .fill(0)
+                .map((insideItem, insideIndex) => {
+                  const randomNumber = getRandomInt(1, 10);
+                  let Component = UserSvg;
 
-          if (randomNumber === 1) {
-            Component = SpySvg;
-          } else if (randomNumber === 2) {
-            Component = SpySvg;
-          } else if (randomNumber === 3) {
-            Component = AstronautSvg;
-          } else if (randomNumber === 4) {
-            Component = DoctorSvg;
-          } else if (randomNumber === 5) {
-            Component = GraduateSvg;
-          } else if (randomNumber === 6) {
-            Component = NinjaSvg;
-          } else if (randomNumber === 7) {
-            Component = UserTieSvg;
-          } else if (randomNumber === 8) {
-            Component = UserSvg;
-          } else if (randomNumber === 9) {
-            Component = UserSvg;
-          }
+                  if (randomNumber === 1) {
+                    Component = SpySvg;
+                  } else if (randomNumber === 2) {
+                    Component = SpySvg;
+                  } else if (randomNumber === 3) {
+                    Component = AstronautSvg;
+                  } else if (randomNumber === 4) {
+                    Component = DoctorSvg;
+                  } else if (randomNumber === 5) {
+                    Component = GraduateSvg;
+                  } else if (randomNumber === 6) {
+                    Component = NinjaSvg;
+                  } else if (randomNumber === 7) {
+                    Component = UserTieSvg;
+                  } else if (randomNumber === 8) {
+                    Component = UserSvg;
+                  } else if (randomNumber === 9) {
+                    Component = UserSvg;
+                  }
 
-          return (
-            <React.Fragment key={`row_item_one_${insideIndex.toString()}`}>
-              <Component style={randomNumber === 1 ? {"--svgclr":"#ca3e47"} : {}} />
-            </React.Fragment>
-          );
-        })}
-      </div>
-    </div>
-  )), []);
+                  return (
+                    <React.Fragment
+                      key={`row_item_one_${insideIndex.toString()}`}
+                    >
+                      <Component
+                        style={
+                          randomNumber === 1 ? { "--svgclr": "#ca3e47" } : {}
+                        }
+                      />
+                    </React.Fragment>
+                  );
+                })}
+            </div>
+          </div>
+        )),
+    []
+  );
 
   return (
     <>
-      { newBD }
+      {newBD}
       {/*{ oldBD }*/}
     </>
-  )
+  );
 };
 
 export default HomeBG;

@@ -1,12 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import './style.css';
+import "./style.css";
 
-const CircleButton = ({
-  handleClick,
-  text,
-  svg,
-}) => {
+const CircleButton = ({ handleClick, text, svg }) => {
   return (
     <button className="cta" onClick={handleClick}>
       <span>{text}</span>
@@ -17,7 +13,7 @@ const CircleButton = ({
         </svg>
       )}
     </button>
-  )
+  );
 };
 
 export default CircleButton;

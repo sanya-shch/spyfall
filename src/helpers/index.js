@@ -6,17 +6,20 @@ function getMultipleRandom(arr, num) {
   return shuffled.slice(0, num);
 }
 
-const getLocationsData = num => getMultipleRandom(locations, num)
-  .map(item => ({ id: item.id, title: item.title }));
+const getLocationsData = (num) =>
+  getMultipleRandom(locations, num).map((item) => ({
+    id: item.id,
+    title: item.title,
+  }));
 
-const getRandomLocation = locationsData => {
+const getRandomLocation = (locationsData) => {
   const mapSize = locationsData.length;
   const locationIndex = Math.floor(Math.random() * mapSize);
 
   return locationsData[locationIndex];
 };
 
-export const getRandomLocationsData = num => {
+export const getRandomLocationsData = (num) => {
   const locationsList = getLocationsData(num);
   const location = getRandomLocation(locationsList);
 

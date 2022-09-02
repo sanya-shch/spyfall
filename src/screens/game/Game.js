@@ -1,4 +1,12 @@
-import React, { useState, useEffect, useMemo, useContext, useCallback, lazy, Suspense } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  useContext,
+  useCallback,
+  lazy,
+  Suspense,
+} from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import copy from "copy-to-clipboard";
 import {
@@ -29,7 +37,7 @@ import { getRandomLocationsData } from "../../helpers";
 import CircleButton from "../../components/CircleButton";
 import Loader from "../../components/Loader";
 
-import './style.css';
+import "./style.css";
 
 const GameCard = lazy(() => import("./components/GameCard"));
 const GameBlock = lazy(() => import("./components/GameBlock"));
@@ -69,8 +77,13 @@ const Game = () => {
 
   const { setToast } = useContext(ToastContext);
 
-  const isSpy = useMemo(() => gameData?.spy_uid && (uuid === gameData.spy_uid?.[0] ||
-    (gameData.spy_uid?.length > 1 && uuid === gameData.spy_uid[1])), [gameData?.spy_uid, uuid]);
+  const isSpy = useMemo(
+    () =>
+      gameData?.spy_uid &&
+      (uuid === gameData.spy_uid?.[0] ||
+        (gameData.spy_uid?.length > 1 && uuid === gameData.spy_uid[1])),
+    [gameData?.spy_uid, uuid]
+  );
 
   const isInGame = useMemo(() => {
     if (gameData?.midgame_player_uid) {
@@ -168,7 +181,7 @@ const Game = () => {
     uuid,
   ]);
 
-  const handleChange = value => {
+  const handleChange = (value) => {
     setUserName(value);
   };
 
@@ -190,7 +203,7 @@ const Game = () => {
     let username = "";
     let points = 0;
 
-    gameData.player_data_arr.forEach(arr => {
+    gameData.player_data_arr.forEach((arr) => {
       if (arr.uid === uuid) {
         username = arr.username;
         points = arr.points;
@@ -256,11 +269,14 @@ const Game = () => {
       const locationsData = getRandomLocationsData(30);
       await updateDoc(doc(db, "game_rooms", id), {
         spy_uid: randomUid,
-        location: { title: locationsData.location.title,  id: locationsData.location.id },
+        location: {
+          title: locationsData.location.title,
+          id: locationsData.location.id,
+        },
         locations_list: locationsData.locationsList,
         ongoing_game: true,
         // startedAt: serverTimestamp(),
-        timeData: arrayUnion({ time: Timestamp.now(), status: 'start' }),
+        timeData: arrayUnion({ time: Timestamp.now(), status: "start" }),
       });
 
       setOngoingGame(true);
@@ -271,7 +287,7 @@ const Game = () => {
   async function resetGame() {
     await updateDoc(doc(db, "game_rooms", id), {
       spy_uid: [],
-      location: { title: '',  id: '' },
+      location: { title: "", id: "" },
       locations_list: [],
       ongoing_game: false,
       midgame_player_uid: [],
@@ -291,7 +307,7 @@ const Game = () => {
 
       setToast({
         message: "Copied",
-        type: 'success',
+        type: "success",
       });
     }
 
@@ -342,7 +358,7 @@ const Game = () => {
     updateDoc(doc(db, "game_rooms", id), {
       vote_exhibited_uid: uid,
       vote_exhibitor_uid: uuid,
-      timeData: arrayUnion({ time: Timestamp.now(), status: 'pause' }),
+      timeData: arrayUnion({ time: Timestamp.now(), status: "pause" }),
     });
   }
 
@@ -359,26 +375,27 @@ const Game = () => {
   // }, []);
 
   // countdown timer score
-  const timerScore = useMemo(() => gameData?.timeData?.at(-1)?.status === 'start'
-    ? (
-      gameData.timeData.reduce((acc, timeItem, index) => {
-        if (index === 0) {
-          return 0;
-        }
+  const timerScore = useMemo(
+    () =>
+      gameData?.timeData?.at(-1)?.status === "start"
+        ? gameData.timeData.reduce((acc, timeItem, index) => {
+            if (index === 0) {
+              return 0;
+            }
 
-        return timeItem.status === 'start' ? acc + timeItem.time.toMillis() : acc - timeItem.time.toMillis();
-      }, 0)
-    )
-    : 'pause',
+            return timeItem.status === "start"
+              ? acc + timeItem.time.toMillis()
+              : acc - timeItem.time.toMillis();
+          }, 0)
+        : "pause",
     [gameData?.timeData]
   );
-  const countdown = useMemo(() => (
-      gameData?.timeData?.length && (
-      timerScore !== 'pause'
+  const countdown = useMemo(
+    () =>
+      gameData?.timeData?.length &&
+      (timerScore !== "pause"
         ? gameData.timeData[0].time.toMillis() + tenMinutes + timerScore
-        : 'pause'
-      )
-    ),
+        : "pause"),
     [gameData?.timeData, timerScore]
   );
 
@@ -394,8 +411,11 @@ const Game = () => {
 
   useEffect(() => {
     if (gameData?.lastGameSpy) {
-      if (uuid !== gameData.lastGameSpy.spyUid && gameData.lastGameSpy?.toasts?.length) {
-        gameData.lastGameSpy.toasts.forEach(item => {
+      if (
+        uuid !== gameData.lastGameSpy.spyUid &&
+        gameData.lastGameSpy?.toasts?.length
+      ) {
+        gameData.lastGameSpy.toasts.forEach((item) => {
           setToast({
             message: item.message,
             type: item.type,
@@ -416,36 +436,40 @@ const Game = () => {
     if (ongoingGame) {
       setToast({
         message: "Round over!",
-        type: 'danger',
+        type: "danger",
       });
 
       if (isSpy) {
-        const player_data_arr = gameData.player_data_arr.map(player => {
+        const player_data_arr = gameData.player_data_arr.map((player) => {
           if (player.uid === uuid) {
-            return { ...player, points: player.points + 2 }
+            return { ...player, points: player.points + 2 };
           }
 
           return player;
         });
 
-        const spyData = gameData.player_data_arr.find(item => item.uid === uuid);
+        const spyData = gameData.player_data_arr.find(
+          (item) => item.uid === uuid
+        );
 
         updateDoc(doc(db, "game_rooms", id), {
-          vote_exhibited_uid: '',
-          vote_exhibitor_uid: '',
+          vote_exhibited_uid: "",
+          vote_exhibitor_uid: "",
           vote_score: {},
 
           player_data_arr,
           lastGameSpy: {
             spyUid: uuid,
-            toasts: [{
-              message: `${spyData?.username || '???'} was a spy.`,
-              type: 'info',
-            }],
+            toasts: [
+              {
+                message: `${spyData?.username || "???"} was a spy.`,
+                type: "info",
+              },
+            ],
           },
 
           spy_uid: [],
-          location: { title: '',  id: '' },
+          location: { title: "", id: "" },
           locations_list: [],
           ongoing_game: false,
           midgame_player_uid: [],
@@ -455,18 +479,17 @@ const Game = () => {
 
         setToast({
           message: "You have received two points.",
-          type: 'success',
+          type: "success",
         });
       }
     }
-
   }, [gameData?.player_data_arr, id, isSpy, setToast, uuid, ongoingGame]);
 
   return (
     <section className="players">
       <h2
         className="game-title"
-        onClick={() => navigate('/')}
+        onClick={() => navigate("/")}
         tabIndex={0}
         role="button"
       >
@@ -476,25 +499,21 @@ const Game = () => {
       {(!ongoingGame || isHost) && !banned && <CopyCode id={id} />}
 
       {!!countdown &&
-      countdown !== 'pause' &&
-      ongoingGame &&
-      !isMidGamePlayer &&
-      !showJoinForm &&
-      !banned && (
-        <Suspense fallback={<Loader isFullScreen={false} />}>
-          <CountdownTimer
-            countToDate={new Date(countdown)}
-            stop={isVoteModalOpen}
-            callback={handlerCountdownTimer}
-          />
-        </Suspense>
-      )}
+        countdown !== "pause" &&
+        ongoingGame &&
+        !isMidGamePlayer &&
+        !showJoinForm &&
+        !banned && (
+          <Suspense fallback={<Loader isFullScreen={false} />}>
+            <CountdownTimer
+              countToDate={new Date(countdown)}
+              stop={isVoteModalOpen}
+              callback={handlerCountdownTimer}
+            />
+          </Suspense>
+        )}
 
-      {ongoingGame &&
-      !isMidGamePlayer &&
-      !showJoinForm &&
-      isInGame &&
-      !banned && (
+      {ongoingGame && !isMidGamePlayer && !showJoinForm && isInGame && !banned && (
         <Suspense fallback={<Loader isFullScreen={false} />}>
           <GameCard isSpy={isSpy} locationData={gameData?.location} />
         </Suspense>
@@ -506,7 +525,7 @@ const Game = () => {
             playersList={gameData.player_data_arr}
             minPlayerCount={gameData.min_player_count}
             spyCount={gameData.spy_count}
-            onClickKick={index => {
+            onClickKick={(index) => {
               setKickIndex(index);
               setIsKickModalOpen(true);
             }}
@@ -547,20 +566,10 @@ const Game = () => {
 
       {banned ? (
         <Banned />
-        ) : (!isMidGamePlayer ? (
-          !isHost &&
-          !showJoinForm &&
-          !ongoingGame && (
-            <div className="join-block">
-              <Button
-                text="Leave ↪"
-                colorOne="#755bea"
-                colorTwo="#ff72c0"
-                onClick={() => setIsLeaveModalOpen(true)}
-              />
-            </div>
-          )
-        ) : (
+      ) : !isMidGamePlayer ? (
+        !isHost &&
+        !showJoinForm &&
+        !ongoingGame && (
           <div className="join-block">
             <Button
               text="Leave ↪"
@@ -570,6 +579,15 @@ const Game = () => {
             />
           </div>
         )
+      ) : (
+        <div className="join-block">
+          <Button
+            text="Leave ↪"
+            colorOne="#755bea"
+            colorTwo="#ff72c0"
+            onClick={() => setIsLeaveModalOpen(true)}
+          />
+        </div>
       )}
 
       {showJoinForm && !banned && (
@@ -582,13 +600,13 @@ const Game = () => {
           />
           <CircleButton
             handleClick={handleClickJoin}
-            text='Join Game'
-            svg={(
+            text="Join Game"
+            svg={
               <svg width="13px" height="10px" viewBox="0 0 13 10">
                 <path d="M1,5 L11,5" />
                 <polyline points="8 1 12 5 8 9" />
               </svg>
-            )}
+            }
           />
         </div>
       )}
@@ -695,17 +713,19 @@ const Game = () => {
         />
       )}
 
-      {isSpyLocationModalOpen && <SpyLocationModal
-        handleClose={() => {
-          setIsSpyLocationModalOpen(false);
-        }}
-        isOpen={isSpyLocationModalOpen}
-        playerData={gameData?.player_data_arr}
-        location={gameData?.location}
-        locationsList={gameData?.locations_list}
-        id={id}
-        uuid={uuid}
-      />}
+      {isSpyLocationModalOpen && (
+        <SpyLocationModal
+          handleClose={() => {
+            setIsSpyLocationModalOpen(false);
+          }}
+          isOpen={isSpyLocationModalOpen}
+          playerData={gameData?.player_data_arr}
+          location={gameData?.location}
+          locationsList={gameData?.locations_list}
+          id={id}
+          uuid={uuid}
+        />
+      )}
     </section>
   );
 };

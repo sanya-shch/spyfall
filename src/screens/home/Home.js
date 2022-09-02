@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 
 // import { ToastContext } from "../../components/Toast";
@@ -44,16 +44,8 @@ const Home = () => {
   return (
     <section className="home">
       <h2 className="main-title">SPYFALL</h2>
-      <Button
-        text="HOST GAME"
-        color="#ca3e47"
-        onClick={handleClickNewGame}
-      />
-      <Button
-        text="JOIN GAME"
-        color="#ca3e47"
-        onClick={handleClickJoinGame}
-      />
+      <Button text="HOST GAME" color="#ca3e47" onClick={handleClickNewGame} />
+      <Button text="JOIN GAME" color="#ca3e47" onClick={handleClickJoinGame} />
       {window.innerWidth > 767 && (
         <Suspense>
           <HomeBG />

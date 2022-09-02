@@ -12,23 +12,23 @@ section.home .main-title {
   position: absolute;
   top: 20%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   font-size: 5rem;
-  color: #DCDDD8;
+  color: #dcddd8;
   background-color: #313131;
   padding: 20px 60px;
   z-index: 1;
   user-select: none;
-  border: 2px solid #DCDDD8;
+  border: 2px solid #dcddd8;
   font-family: "Poppins", sans-serif !important;
 }
 
 section.home button.ns-btn {
   position: absolute;
   left: 50%;
-  transform: translate(-50%,-50%);
-  background-color:  #DCDDD8;
-  color:  #DCDDD8;
+  transform: translate(-50%, -50%);
+  background-color: #dcddd8;
+  color: #dcddd8;
 }
 
 section.home button.ns-btn span {

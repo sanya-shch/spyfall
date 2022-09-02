@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 
-import './style.css';
+import "./style.css";
 
 function flipAllCards(time) {
   const seconds = time % 60;
@@ -31,13 +31,13 @@ function flip(flipCard, newNumber) {
   topFlip.textContent = startNumber;
   bottomFlip.textContent = newNumber;
 
-  topFlip.addEventListener("animationstart", e => {
+  topFlip.addEventListener("animationstart", (e) => {
     topHalf.textContent = newNumber;
   });
-  topFlip.addEventListener("animationend", e => {
+  topFlip.addEventListener("animationend", (e) => {
     topFlip.remove();
   });
-  bottomFlip.addEventListener("animationend", e => {
+  bottomFlip.addEventListener("animationend", (e) => {
     bottomHalf.textContent = newNumber;
     bottomFlip.remove();
   });
@@ -45,10 +45,10 @@ function flip(flipCard, newNumber) {
 }
 
 const CountdownTimer = ({
-                          countToDate = new Date().setHours(new Date().getMinutes() + 24),
-                          stop = false,
-                          callback = function(){},
-                        }) => {
+  countToDate = new Date().setHours(new Date().getMinutes() + 24),
+  stop = false,
+  callback = function () {},
+}) => {
   // let previousTimeBetweenDates;
   // let isStop = false;
   const [isStop, seIsStop] = useState(false);
@@ -76,50 +76,48 @@ const CountdownTimer = ({
 
   if (stop) return;
 
-  return(
-    isStop || stop ? null : (
-      <div className="container">
-        {/*<div className="container-segment">*/}
-        {/*  <div className="segment-title">Hours</div>*/}
-        {/*  <div className="segment">*/}
-        {/*    <div className="flip-card" data-hours-tens>*/}
-        {/*      <div className="top">2</div>*/}
-        {/*      <div className="bottom">2</div>*/}
-        {/*    </div>*/}
-        {/*    <div className="flip-card" data-hours-ones>*/}
-        {/*      <div className="top">4</div>*/}
-        {/*      <div className="bottom">4</div>*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        <div className="container-segment">
-          <div className="segment">
-            <div className="flip-card" data-minutes-tens>
-              <div className="top">0</div>
-              <div className="bottom">0</div>
-            </div>
-            <div className="flip-card" data-minutes-ones>
-              <div className="top">0</div>
-              <div className="bottom">0</div>
-            </div>
+  return isStop || stop ? null : (
+    <div className="container">
+      {/*<div className="container-segment">*/}
+      {/*  <div className="segment-title">Hours</div>*/}
+      {/*  <div className="segment">*/}
+      {/*    <div className="flip-card" data-hours-tens>*/}
+      {/*      <div className="top">2</div>*/}
+      {/*      <div className="bottom">2</div>*/}
+      {/*    </div>*/}
+      {/*    <div className="flip-card" data-hours-ones>*/}
+      {/*      <div className="top">4</div>*/}
+      {/*      <div className="bottom">4</div>*/}
+      {/*    </div>*/}
+      {/*  </div>*/}
+      {/*</div>*/}
+      <div className="container-segment">
+        <div className="segment">
+          <div className="flip-card" data-minutes-tens>
+            <div className="top">0</div>
+            <div className="bottom">0</div>
           </div>
-          <div className="segment-title">Minutes</div>
-        </div>
-        <div className="container-segment">
-          <div className="segment">
-            <div className="flip-card" data-seconds-tens>
-              <div className="top">0</div>
-              <div className="bottom">0</div>
-            </div>
-            <div className="flip-card" data-seconds-ones>
-              <div className="top">0</div>
-              <div className="bottom">0</div>
-            </div>
+          <div className="flip-card" data-minutes-ones>
+            <div className="top">0</div>
+            <div className="bottom">0</div>
           </div>
-          <div className="segment-title">Seconds</div>
         </div>
+        <div className="segment-title">Minutes</div>
       </div>
-    )
+      <div className="container-segment">
+        <div className="segment">
+          <div className="flip-card" data-seconds-tens>
+            <div className="top">0</div>
+            <div className="bottom">0</div>
+          </div>
+          <div className="flip-card" data-seconds-ones>
+            <div className="top">0</div>
+            <div className="bottom">0</div>
+          </div>
+        </div>
+        <div className="segment-title">Seconds</div>
+      </div>
+    </div>
   );
 };
 

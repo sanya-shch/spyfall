@@ -1,6 +1,6 @@
 button.ns-btn {
-  background-color:  #DCDDD8;
-  color:  #DCDDD8;
+  background-color: #dcddd8;
+  color: #dcddd8;
   font-size: 1.5rem;
   letter-spacing: 0.1rem;
   font-weight: 400;
@@ -13,7 +13,7 @@ button.ns-btn {
 }
 
 button.ns-btn::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 2px;
   background-color: #27282c;
@@ -28,7 +28,7 @@ button.ns-btn i {
   display: block;
 }
 button.ns-btn i::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: 80%;
@@ -40,7 +40,7 @@ button.ns-btn i::before {
 }
 
 button.ns-btn i::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 20%;

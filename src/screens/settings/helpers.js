@@ -12,15 +12,15 @@ export const getSixLetterCode = () => {
 };
 
 export const startGame = async ({
-                                  uuid,
-                                  gameId,
-                                  setGameId,
-                                  username,
-                                  spyCount,
-                                  minPlayers,
-                                  setErrorMessage,
-                                  navigate,
-                                }) => {
+  uuid,
+  gameId,
+  setGameId,
+  username,
+  spyCount,
+  minPlayers,
+  setErrorMessage,
+  navigate,
+}) => {
   try {
     // update GameBlock room code list (check for duplicates)
     let codeArr = [];
@@ -53,13 +53,13 @@ export const startGame = async ({
       banned_player_uid: [],
       game_room_closed: false,
       spy_uid: [],
-      location: { title: '',  id: '' },
+      location: { title: "", id: "" },
       locations_list: [],
       ongoing_game: false,
       midgame_player_uid: [],
 
-      vote_exhibited_uid: '',
-      vote_exhibitor_uid: '',
+      vote_exhibited_uid: "",
+      vote_exhibitor_uid: "",
       vote_score: {},
     });
 
@@ -71,11 +71,7 @@ export const startGame = async ({
   }
 };
 
-export const updateErrorMessage = ({
-                              username,
-                              spyCount,
-                              setErrorMessage,
-                            }) => {
+export const updateErrorMessage = ({ username, spyCount, setErrorMessage }) => {
   let error = "";
   if (!username && !spyCount) {
     error = "choose your settings";

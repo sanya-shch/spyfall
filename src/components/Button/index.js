@@ -1,10 +1,13 @@
 import React from "react";
 
-import './style.css';
+import "./style.css";
 
 const Button = ({ text, color, onClick }) => {
   return (
-    <button className="ns-btn" onClick={onClick} style={{"--crl": color}}><span>{text}</span><i></i></button>
+    <button className="ns-btn" onClick={onClick} style={{ "--crl": color }}>
+      <span>{text}</span>
+      <i></i>
+    </button>
   );
 };
 

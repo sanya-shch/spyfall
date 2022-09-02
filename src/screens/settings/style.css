@@ -19,7 +19,7 @@ section.settings-page h2.game-title {
   position: absolute;
   top: 10%;
   left: 50%;
-  transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
   font-size: 4rem;
   color: #dcddd8;
   padding: 20px 40px;
